@@ -38,8 +38,8 @@ Grafo::Grafo(int ordem, bool dirigido, bool arestaPonderada, bool noPonderado) {
  */
 Grafo::~Grafo() {
     No *prox = this->primeiroNo;
-    
-    while(prox!= nullptr){
+
+    while (prox != nullptr) {
         prox->removerTodasAresta();
         No *aux = prox->getProximoNo();
         delete prox;
@@ -51,7 +51,7 @@ Grafo::~Grafo() {
  * Retorna o número de nós do grafo
  * @return int ordem
  */
-int Grafo::getOrdem(){
+int Grafo::getOrdem() {
     return this->ordem;
 }
 
@@ -59,7 +59,7 @@ int Grafo::getOrdem(){
  * Retorna o número de arestas do grafo
  * @return int nArestas
  */
-int Grafo::getNArestas(){
+int Grafo::getNArestas() {
     return this->nArestas;
 }
 
@@ -67,7 +67,7 @@ int Grafo::getNArestas(){
  * Retorna se o grafo é ou não direcionado
  * @return bool dirigido
  */
-bool Grafo::getDirigido(){
+bool Grafo::getDirigido() {
     return this->dirigido;
 }
 
@@ -75,7 +75,7 @@ bool Grafo::getDirigido(){
  * Retorna se o grafo é ou não é ponderado nas arestas
  * @return bool arestaPonderada
  */
-bool Grafo::getArestaPonderada(){
+bool Grafo::getArestaPonderada() {
     return this->arestaPoderada;
 }
 
@@ -83,7 +83,7 @@ bool Grafo::getArestaPonderada(){
  * Retorna se o grafo é ou não ponderado nos vértices
  * @return 
  */
-bool Grafo::getNoPonderado(){
+bool Grafo::getNoPonderado() {
     return this->noPonderado;
 }
 
@@ -91,7 +91,7 @@ bool Grafo::getNoPonderado(){
  * Retorna o ponteiro para primeira posição na lista de nós dos grafo
  * @return 
  */
-No *Grafo::getPrimeiroNo(){
+No *Grafo::getPrimeiroNo() {
     return this->primeiroNo;
 }
 
@@ -99,6 +99,38 @@ No *Grafo::getPrimeiroNo(){
  * Retorna o ponteiro para o último nó inserido no grafo
  * @return 
  */
-No *Grafo::getUltimoNo(){
+No *Grafo::getUltimoNo() {
     return this->ultimoNo;
+}
+
+/**
+ * Busca um nó do grafo
+ * @param id
+ * @return 
+ */
+bool Grafo::buscarNo(int id) {
+    if (this->primeiroNo != nullptr) {
+        for (No*prox = this->primeiroNo; prox != nullptr; prox = prox->getProximoNo()) {
+            if(prox->getId() == id){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+/**
+ * Retorna um nó buscado 
+ * @param id
+ * @return 
+ */
+No *Grafo::getNo(int id){
+    if (this->primeiroNo != nullptr) {
+        for (No*prox = this->primeiroNo; prox != nullptr; prox = prox->getProximoNo()) {
+            if(prox->getId() == id){
+                return prox;
+            }
+        }
+    }
+    return nullptr;
 }

@@ -133,11 +133,11 @@ bool No::buscarAresta(int label) {
 }
 
 /**
- * Busca na lista de adjacência uma aresta 
+ * Retorna uma aresta da lista de adjacência
  * @param label
  * @return Aresta *aresta
  */
-Aresta *No::obterAresta(int label) {
+Aresta *No::getAresta(int label) {
     //verifica se a lista de arestas adjacentes está vazia
     if (this->primeiraAresta != nullptr) {
         //percorrendo a lista a partir da primeira aresta

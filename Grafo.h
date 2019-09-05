@@ -35,6 +35,10 @@ public:
     bool getNoPonderado();
     No *getPrimeiroNo();
     No *getUltimoNo();
+    //Outros métodos
+    bool buscarNo(int id);
+    No *getNo(int id);
+    
 private:
     //Atributos
     int ordem;
