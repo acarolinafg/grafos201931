@@ -117,15 +117,15 @@ void No::setProximoNo(No* proximoNo) {
 
 /**
  * Busca se uma aresta existe na lista de adjacência
- * @param idNo
+ * @param label
  * @return bool true|false
  */
-bool No::buscarAresta(int id) {
+bool No::buscarAresta(int label) {
     //verifica se a lista de arestas adjacentes está vazia
     if (this->primeiraAresta != nullptr) {
         //percorrendo a lista a partir da primeira aresta
         for (Aresta *prox = this->primeiraAresta; prox != nullptr; prox = prox->getProximaAresta()) {
-            if (prox->getIdNo() == id)
+            if (prox->getLabel() == label)
                 return true;
         }
     }
@@ -134,15 +134,15 @@ bool No::buscarAresta(int id) {
 
 /**
  * Busca na lista de adjacência uma aresta 
- * @param idNo
+ * @param label
  * @return Aresta *aresta
  */
-Aresta *No::obterAresta(int id) {
+Aresta *No::obterAresta(int label) {
     //verifica se a lista de arestas adjacentes está vazia
     if (this->primeiraAresta != nullptr) {
         //percorrendo a lista a partir da primeira aresta
         for (Aresta *prox = this->primeiraAresta; prox != nullptr; prox = prox->getProximaAresta()) {
-            if (prox->getIdNo() == id)
+            if (prox->getLabel() == label)
                 return prox;
         }
     }
@@ -151,14 +151,14 @@ Aresta *No::obterAresta(int id) {
 
 /**
  * Inserir uma nova aresta adjacente ao nó
- * @param idNo
+ * @param label
  * @param peso
  */
-void No::inserirAresta(int id, float peso) {
+void No::inserirAresta(int label, float peso) {
     //verifica se já existe aresta
     if (this->primeiraAresta != nullptr) {
         //cria uma nova aresta
-        Aresta *aresta = new Aresta(id);
+        Aresta *aresta = new Aresta(label);
         aresta->setPeso(peso);
 
         //aloca a aresta criada na última posição da lista de arestas
@@ -166,7 +166,7 @@ void No::inserirAresta(int id, float peso) {
         this->ultimaAresta = aresta;
     } else {
         //se é a primeira aresta
-        this->primeiraAresta = new Aresta(id);
+        this->primeiraAresta = new Aresta(label);
         this->primeiraAresta->setPeso(peso);
         this->ultimaAresta = this->primeiraAresta;
     }
@@ -178,13 +178,13 @@ void No::inserirAresta(int id, float peso) {
  * @param dirigido
  * @return 
  */
-bool No::removerAresta(int id, bool dirigido) {
+bool No::removerAresta(int label, bool dirigido) {
     //se a aresta existir vamos excluir 
-    if(this->buscarAresta(id)){
+    if(this->buscarAresta(label)){
         Aresta *aux = this->primeiraAresta;
         Aresta *anterior = nullptr;
         //percorrer a lista de arestas 
-        while(aux->getIdNo()!= id){
+        while(aux->getLabel()!= label){
             anterior = aux;
             aux = aux->getProximaAresta();
         }
@@ -219,13 +219,12 @@ bool No::removerAresta(int id, bool dirigido) {
  */
 void No::removerTodasAresta(){
     if(this->primeiraAresta!= nullptr){
-        Aresta *aux = nullptr;
         Aresta *prox = this->primeiraAresta;
         
         while(prox!= nullptr){
-            aux = prox;
-            prox = prox->getProximaAresta();
-            delete aux;
+            Aresta *aux = prox->getProximaAresta();
+            delete prox;
+            prox = aux;
         }
         
         //atualizar o grau do nó

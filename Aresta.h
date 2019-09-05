@@ -22,18 +22,18 @@ using namespace std;
 class Aresta {
 public:
     //Construtor
-    Aresta(int idNo);
+    Aresta(int label);
     //Destrutor
     ~Aresta();
     //Gets
-    int getIdNo();
+    int getLabel();
     float getPeso();
     Aresta *getProximaAresta();
     //Sets
     void setPeso(float peso);
     void setProximaAresta(Aresta *proximaAresta);
 private:
-    int idNo;
+    int label;
     float peso;
     Aresta *proximaAresta;
 };

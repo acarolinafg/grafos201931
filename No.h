@@ -38,10 +38,10 @@ public:
     void setPeso(float peso);
     void setProximoNo(No *proximoNo);
     //Outros métodos
-    bool buscarAresta(int id);
-    Aresta *obterAresta(int id);
-    void inserirAresta(int id, float peso);
-    bool removerAresta(int id, bool dirigido);
+    bool buscarAresta(int label);
+    Aresta *obterAresta(int label);
+    void inserirAresta(int label, float peso);
+    bool removerAresta(int label, bool dirigido);
     void removerTodasAresta();
     void incrementarGrau();
     void incrementarGrauSaida();

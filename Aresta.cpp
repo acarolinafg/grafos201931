@@ -17,10 +17,10 @@
 
 /**
  * Construtor da Aresta
- * @param idNo
+ * @param label
  */
-Aresta::Aresta(int idNo) {
-    this->idNo = idNo;
+Aresta::Aresta(int label) {
+    this->label = label;
     this->peso = 0;
     this->proximaAresta = nullptr;
 }
@@ -36,11 +36,11 @@ Aresta::~Aresta() {
 }
 
 /**
- * Retorna o ID do nó de destino
- * @return int idNo
+ * Retorna o identificador da aresta (nó de destino)
+ * @return int label
  */
-int Aresta::getIdNo() {
-    return this->idNo;
+int Aresta::getLabel() {
+    return this->label;
 }
 
 /**
