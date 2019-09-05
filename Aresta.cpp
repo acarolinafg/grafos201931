@@ -9,8 +9,11 @@
  *                 TRABALHO PRÁTICO GRUPO 13                *
  ************************************************************/
 
+/************************************************************
+ *            Definindo os métodos da Aresta                *
+ ***********************************************************/
+
 #include "Aresta.h"
-#include <iostream>
 
 /**
  * Construtor da Aresta
@@ -26,7 +29,7 @@ Aresta::Aresta(int idNo) {
  * Destrutor da Aresta
  */
 Aresta::~Aresta() {
-    if(this->proximaAresta!= nullptr){
+    if (this->proximaAresta != nullptr) {
         delete this->proximaAresta;
         this->proximaAresta = nullptr;
     }
@@ -34,25 +37,25 @@ Aresta::~Aresta() {
 
 /**
  * Retorna o ID do nó de destino
- * @return 
+ * @return int idNo
  */
-int Aresta::getIdNo(){
+int Aresta::getIdNo() {
     return this->idNo;
 }
 
 /**
  * Retorna o peso da aresta
- * @return 
+ * @return float peso
  */
-float Aresta::getPeso(){
+float Aresta::getPeso() {
     return this->peso;
 }
 
 /**
  * Retorna a próxima aresta adjacente ao nó
- * @return 
+ * @return Aresta *proximaAresta
  */
-Aresta * Aresta::getProximaAresta(){
+Aresta * Aresta::getProximaAresta() {
     return this->proximaAresta;
 }
 
@@ -60,7 +63,7 @@ Aresta * Aresta::getProximaAresta(){
  * Armazena o peso da aresta
  * @param peso
  */
-void Aresta::setPeso(float peso){
+void Aresta::setPeso(float peso) {
     this->peso = peso;
 }
 
@@ -68,7 +71,7 @@ void Aresta::setPeso(float peso){
  * Armazena a próxima aresta adjacente ao nó
  * @param proximaAresta
  */
-void Aresta::setProximaAresta(Aresta* proximaAresta){
+void Aresta::setProximaAresta(Aresta* proximaAresta) {
     this->proximaAresta = proximaAresta;
 }
 

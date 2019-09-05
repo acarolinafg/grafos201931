@@ -10,33 +10,52 @@
  ************************************************************/
 
 /************************************************************
- *             Implementação do TAD Aresta                  *
+ *               Implementação do TAD No                    *
  ***********************************************************/
 
-#ifndef ARESTA_H
-#define ARESTA_H
+#ifndef NO_H
+#define NO_H
 #include <iostream>
+#include "Aresta.h"
 
 using namespace std;
 
-class Aresta {
+class No {
 public:
-    //Construtor
-    Aresta(int idNo);
+    //Contrutor
+    No(int id);
     //Destrutor
-    ~Aresta();
+    ~No();
     //Gets
-    int getIdNo();
+    int getId();
     float getPeso();
-    Aresta *getProximaAresta();
+    unsigned int getGrau();
+    unsigned int getGrauSaida();
+    Aresta *getPrimeiraAresta();
+    Aresta *getUltimaAresta();
+    No *getProximoNo();
     //Sets
     void setPeso(float peso);
-    void setProximaAresta(Aresta *proximaAresta);
+    void setProximoNo(No *proximoNo);
+    //Outros métodos
+    bool buscarAresta(int id);
+    Aresta *obterAresta(int id);
+    void inserirAresta(int id, float peso);
+    bool removerAresta(int id, bool dirigido);
+    void removerTodasAresta();
+    void incrementarGrau();
+    void incrementarGrauSaida();
+    void decrementarGrau();
+    void decrementarGrauSaida();
 private:
-    int idNo;
+    int id;
     float peso;
-    Aresta *proximaAresta;
+    unsigned int grau;
+    unsigned int grauSaida;
+    Aresta *primeiraAresta;
+    Aresta *ultimaAresta;
+    No* proximoNo;
 };
 
-#endif /* ARESTA_H */
+#endif /* NO_H */
 
