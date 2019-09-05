@@ -16,18 +16,17 @@
 
 /**
  * Constrtutor de um objeto Grafo
- * @param ordem
  * @param dirigido
  * @param arestaPonderada
  * @param noPonderado
  */
-Grafo::Grafo(int ordem, bool dirigido, bool arestaPonderada, bool noPonderado) {
-    this->ordem = ordem;
+Grafo::Grafo(bool dirigido, bool arestaPonderada, bool noPonderado) {
     this->dirigido = dirigido;
     this->arestaPoderada = arestaPonderada;
     this->noPonderado = noPonderado;
     this->ultimoNo = this->primeiroNo = nullptr;
     this->nArestas = 0;
+    this->ordem = 0;
 }
 
 /**
@@ -147,6 +146,8 @@ void Grafo::inserirNo(int id) {
         this->primeiroNo = new No(id);
         this->ultimoNo = this->primeiroNo;
     }
+    //atualizar a ordem do grafo
+    this->ordem++;
 }
 
 /**
@@ -178,55 +179,60 @@ void Grafo::inserirAresta(int id, int label, float peso) {
         adj->incrementarGrau();
         no->incrementarGrau();
     }
+    //atualizar o número de arestas
+    this->nArestas++;
 }
 
 /**
  * Remover nó do grafo
  * @param id
  */
-void Grafo::removerNo(int id){
+void Grafo::removerNo(int id) {
     //excluir somente se o nó existir
-    if(this->buscarNo(id)){
+    if (this->buscarNo(id)) {
         //remoção das arestas
-        if(this->dirigido){
+        if (this->dirigido) {
             //percorrer toda a lista de nós buscando onde o nó id é nó de origem e exluir a aresta
-            for(No *p = this->primeiroNo; p!= nullptr; p = p->getProximoNo()){
-                p->removerAresta(id, this->dirigido);
+            for (No *p = this->primeiroNo; p != nullptr; p = p->getProximoNo()) {
+                //remove e atualiza o número de aresta do grafo
+                if (p->removerAresta(id, this->dirigido))
+                    this->nArestas--;
             }
-        }else{
-           //removendo a aresta id do nó adjacente ao nó id
-           No *no = this->getNo(id);
-           
-           //percorrer as arestas do nó
-           for(Aresta *p = no->getPrimeiraAresta(); p!= nullptr; p = p->getProximaAresta()){
-               //nó destino
-               No *adj = this->getNo(p->getLabel());
-               adj->removerAresta(id,this->dirigido);
-           }
+        } else {
+            //removendo a aresta id do nó adjacente ao nó id
+            No *no = this->getNo(id);
+
+            //percorrer as arestas do nó
+            for (Aresta *p = no->getPrimeiraAresta(); p != nullptr; p = p->getProximaAresta()) {
+                //nó destino
+                No *adj = this->getNo(p->getLabel());
+                adj->removerAresta(id, this->dirigido);
+                this->nArestas--;
+            }
         }
-        
+
         //remoção do nó e manutenção da lista de nos
         No *aux = this->primeiroNo;
         No *anterior = nullptr;
-        while(aux->getId()!= id){
+        while (aux->getId() != id) {
             anterior = aux;
             aux = aux->getProximoNo();
         }
-        
+
         //mantendo a lista
-        if(anterior!= nullptr)
+        if (anterior != nullptr)
             anterior->setProximoNo(aux->getProximoNo());
         else
             this->primeiroNo = aux->getProximoNo();
-        
-        if(aux == this->ultimoNo)
+
+        if (aux == this->ultimoNo)
             this->ultimoNo = anterior;
-        
-        if(aux->getProximoNo() == this->ultimoNo)
+
+        if (aux->getProximoNo() == this->ultimoNo)
             this->ultimoNo = aux->getProximoNo();
-        
+
         delete aux;
-        
+
         //atualizar a ordem do grafo
         this->ordem--;
     }

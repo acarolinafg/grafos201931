@@ -26,7 +26,7 @@ using namespace std;
 class Grafo {
 public:
     //Construtor
-    Grafo(int ordem, bool dirigido, bool arestaPonderada, bool noPonderado);
+    Grafo(bool dirigido, bool arestaPonderada, bool noPonderado);
     //Destrutor
     ~Grafo();
     //Gets
