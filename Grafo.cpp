@@ -12,10 +12,7 @@
 /************************************************************
  *             Definindo os métodos do Grafo                *
  ***********************************************************/
-#include <valarray>
-
 #include "Grafo.h"
-#include "No.h"
 
 /**
  * Constrtutor de um objeto Grafo
@@ -111,7 +108,7 @@ No *Grafo::getUltimoNo() {
 bool Grafo::buscarNo(int id) {
     if (this->primeiroNo != nullptr) {
         for (No*prox = this->primeiroNo; prox != nullptr; prox = prox->getProximoNo()) {
-            if(prox->getId() == id){
+            if (prox->getId() == id) {
                 return true;
             }
         }
@@ -124,10 +121,10 @@ bool Grafo::buscarNo(int id) {
  * @param id
  * @return 
  */
-No *Grafo::getNo(int id){
+No *Grafo::getNo(int id) {
     if (this->primeiroNo != nullptr) {
         for (No*prox = this->primeiroNo; prox != nullptr; prox = prox->getProximoNo()) {
-            if(prox->getId() == id){
+            if (prox->getId() == id) {
                 return prox;
             }
         }
@@ -139,16 +136,46 @@ No *Grafo::getNo(int id){
  * Inserir um nó do grafo
  * @param id
  */
-void Grafo::inserirNo(int id){
+void Grafo::inserirNo(int id) {
     //verifica se já existe nó
-    if(this->primeiroNo!= nullptr){
+    if (this->primeiroNo != nullptr) {
         //inserir o  nó no final da lista
         No *no = new No(id);
         this->ultimoNo->setProximoNo(no);
         this->ultimoNo = no;
-        
-    }else{
+    } else {
         this->primeiroNo = new No(id);
         this->ultimoNo = this->primeiroNo;
+    }
+}
+
+/**
+ * Inserir aresta 
+ * @param id
+ * @param label
+ * @param peso
+ */
+void Grafo::inserirAresta(int id, int label, float peso) {
+    //inserir nó se ainda não foi inserido no grafo
+    if (!this->buscarNo(id))
+        this->inserirNo(id);
+
+    //inserir nó adjacente se ele ainda não está no grafo
+    if (!this->buscarNo(label))
+        this->inserirNo(label);
+
+    No *no = this->getNo(id);
+    no->inserirAresta(label, peso);
+
+    //grafo direcionado
+    if (this->dirigido) {
+        no->incrementarGrauSaida();
+    } else {//grafo simples
+        //inserir a aresta no adjacente
+        No *adj = this->getNo(label);
+        adj->inserirAresta(id, peso);
+
+        adj->incrementarGrau();
+        no->incrementarGrau();
     }
 }

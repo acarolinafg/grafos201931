@@ -16,7 +16,9 @@
 #ifndef GRAFO_H
 #define GRAFO_H
 #include <iostream>
+#include <valarray>
 #include "Aresta.h"
+#include "No.h"
 #include "Grafo.h"
 
 using namespace std;
@@ -39,6 +41,7 @@ public:
     bool buscarNo(int id);
     No *getNo(int id);
     void inserirNo(int id);
+    void inserirAresta(int id, int label, float peso);
 private:
     //Atributos
     int ordem;
