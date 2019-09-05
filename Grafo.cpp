@@ -179,3 +179,55 @@ void Grafo::inserirAresta(int id, int label, float peso) {
         no->incrementarGrau();
     }
 }
+
+/**
+ * Remover nó do grafo
+ * @param id
+ */
+void Grafo::removerNo(int id){
+    //excluir somente se o nó existir
+    if(this->buscarNo(id)){
+        //remoção das arestas
+        if(this->dirigido){
+            //percorrer toda a lista de nós buscando onde o nó id é nó de origem e exluir a aresta
+            for(No *p = this->primeiroNo; p!= nullptr; p = p->getProximoNo()){
+                p->removerAresta(id, this->dirigido);
+            }
+        }else{
+           //removendo a aresta id do nó adjacente ao nó id
+           No *no = this->getNo(id);
+           
+           //percorrer as arestas do nó
+           for(Aresta *p = no->getPrimeiraAresta(); p!= nullptr; p = p->getProximaAresta()){
+               //nó destino
+               No *adj = this->getNo(p->getLabel());
+               adj->removerAresta(id,this->dirigido);
+           }
+        }
+        
+        //remoção do nó e manutenção da lista de nos
+        No *aux = this->primeiroNo;
+        No *anterior = nullptr;
+        while(aux->getId()!= id){
+            anterior = aux;
+            aux = aux->getProximoNo();
+        }
+        
+        //mantendo a lista
+        if(anterior!= nullptr)
+            anterior->setProximoNo(aux->getProximoNo());
+        else
+            this->primeiroNo = aux->getProximoNo();
+        
+        if(aux == this->ultimoNo)
+            this->ultimoNo = anterior;
+        
+        if(aux->getProximoNo() == this->ultimoNo)
+            this->ultimoNo = aux->getProximoNo();
+        
+        delete aux;
+        
+        //atualizar a ordem do grafo
+        this->ordem--;
+    }
+}

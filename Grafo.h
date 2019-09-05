@@ -42,6 +42,7 @@ public:
     No *getNo(int id);
     void inserirNo(int id);
     void inserirAresta(int id, int label, float peso);
+    void removerNo(int id);
 private:
     //Atributos
     int ordem;
