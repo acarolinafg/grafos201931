@@ -43,6 +43,7 @@ public:
     void inserirNo(int id);
     void inserirAresta(int id, int label, float peso);
     void removerNo(int id);
+    void imprimir();
 private:
     //Atributos
     int ordem;
