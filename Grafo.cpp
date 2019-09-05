@@ -134,3 +134,21 @@ No *Grafo::getNo(int id){
     }
     return nullptr;
 }
+
+/**
+ * Inserir um nó do grafo
+ * @param id
+ */
+void Grafo::inserirNo(int id){
+    //verifica se já existe nó
+    if(this->primeiroNo!= nullptr){
+        //inserir o  nó no final da lista
+        No *no = new No(id);
+        this->ultimoNo->setProximoNo(no);
+        this->ultimoNo = no;
+        
+    }else{
+        this->primeiroNo = new No(id);
+        this->ultimoNo = this->primeiroNo;
+    }
+}

@@ -38,7 +38,7 @@ public:
     //Outros métodos
     bool buscarNo(int id);
     No *getNo(int id);
-    
+    void inserirNo(int id);
 private:
     //Atributos
     int ordem;
