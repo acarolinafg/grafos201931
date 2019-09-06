@@ -201,7 +201,7 @@ bool No::removerAresta(int label, bool dirigido) {
         if(aux->getProximaAresta() == this->ultimaAresta)
             this->ultimaAresta = aux->getProximaAresta();
         
-        delete aux;
+        //delete aux;
         
         //verificando se o grafo é direcionado
         if(dirigido){

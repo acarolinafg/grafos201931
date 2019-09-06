@@ -230,9 +230,9 @@ void Grafo::removerNo(int id) {
 
         if (aux->getProximoNo() == this->ultimoNo)
             this->ultimoNo = aux->getProximoNo();
-        
+
         aux->removerTodasAresta();
-        delete aux;
+        //delete aux;
 
         //atualizar a ordem do grafo
         this->ordem--;
@@ -242,25 +242,24 @@ void Grafo::removerNo(int id) {
 /**
  * Imprime todos os nós com suas arestas na tela
  */
-void Grafo::imprimir(){
-    if(this->primeiroNo!= nullptr){
+void Grafo::imprimir() {
+    if (this->primeiroNo != nullptr) {
         No *p = this->primeiroNo;
-        
+
         //percorrendo a lista de nó
-        while(p!= nullptr){
-            cout<< p->getId() + ": ";
-            
+        while (p != nullptr) {
+            cout << p->getId() << ": ";
+
             //imprimir as arestas
             Aresta *a = p->getPrimeiraAresta();
-            while(a!= nullptr){
-                cout<< a->getLabel() + " -> ";
-                
-                a->getProximaAresta();
+            while (a != nullptr) {
+                cout << a->getLabel() << "->";
+                a = a->getProximaAresta();
             }
             cout << "" << endl;
-            p->getProximoNo();
+            p = p->getProximoNo();
         }
-    }else{
+    } else {
         cout << "Grafo sem nó e sem arestas";
     }
 }

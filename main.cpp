@@ -11,6 +11,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include "Grafo.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ using namespace std;
  *                  PROGRAMA PRINCIPAL                      *
  ***********************************************************/
 int main(int argc, char** argv) {
-   
+
     return 0;
 }
 
