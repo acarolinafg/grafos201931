@@ -230,6 +230,8 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
 
     }
 
+    escrita(arquivo_saida, grafo);
+
 }
 
 /**
@@ -251,9 +253,11 @@ int mainMenu(ofstream& arquivo_saida, Grafo* grafo) {
 
         else
             cout << "Não foi possível abrir o arquivo de saída." << endl;
+    }
 
-        arquivo_saida << endl;
-
+    //gravar o grafo
+    if (opcao == 0) {
+        escrita(arquivo_saida, grafo);
     }
 
     return 0;
@@ -263,6 +267,40 @@ int mainMenu(ofstream& arquivo_saida, Grafo* grafo) {
  *                  PROGRAMA PRINCIPAL                      *
  ***********************************************************/
 int main(int argc, char** argv) {
-    
+    //Verificação se todos os parâmetros do programa foram entrados
+    if (argc != 6) {
+        cout << "ERROR: Esperando: ./<nome_programa> <arquivo_entrada> <arquivo_saida> <dirigido> <ponderado_aresta> <ponderado_no> " << endl;
+        return 1;
+    }
+
+    string nome_programa(argv[0]);
+    string arq_entrada_nome(argv[1]);
+
+    if (arq_entrada_nome.find(".") <= arq_entrada_nome.size()) {
+        string instance = arq_entrada_nome.substr(0, arq_entrada_nome.find("."));
+        cout << "Executando o  " << nome_programa << " com a instância " << instance << " ... " << endl;
+    }
+
+    ifstream arq_entrada;
+    ofstream arq_saida;
+
+    arq_entrada.open(argv[1], ios::in);
+    arq_saida.open(argv[2], ios::out | ios::trunc);
+
+    Grafo *grafo;
+
+    if (arq_entrada.is_open()) {
+        grafo = leitura(arq_entrada, atoi(argv[3]), atoi(argv[4]), atoi(argv[5]));
+    } else
+        cout << "Não foi possível abrir o arquivo " << arq_entrada_nome << endl;
+
+    mainMenu(arq_saida, grafo);
+
+    //Fechando arquivo de entrada
+    arq_entrada.close();
+
+    //Fechando arquivo de saída
+    arq_saida.close();
+
     return 0;
 }
