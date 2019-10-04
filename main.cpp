@@ -115,7 +115,138 @@ void escrita(ofstream& arquivo, Grafo *grafo) {
     }
 }
 
+/**
+ * Imprime o menu e retorna a opção escolhida pelo usuário
+ * @return 
+ */
+int menu() {
 
+    int selecao;
+
+    cout << "MENU" << endl;
+    cout << "----" << endl;
+    cout << "[1] Imprimir caminhamento em largura" << endl;
+    cout << "[2] Imprimir caminhamento em profundidade" << endl;
+    cout << "[3] Fecho transitivo direto" << endl;
+    cout << "[4] Fecho transitivo indireto" << endl;
+    cout << "[5] Caminho Mínimo Dijkstra" << endl;
+    cout << "[6] Caminho Mínimo Floyd" << endl;
+    cout << "[7] Árvore Geradora Mínima de Prim" << endl;
+    cout << "[8] Árvore Geradora Mínima de Kruskal" << endl;
+    cout << "[9] Fecho triádico" << endl;
+    cout << "[0] Sair" << endl;
+
+    cin >> selecao;
+
+    return selecao;
+}
+
+/**
+ * Execução do método escolhido
+ * @param opcao
+ * @param grafo
+ * @param arquivo_saida
+ */
+void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
+
+    switch (opcao) {
+
+            //DFS
+        case 1:
+        {
+
+            break;
+        }
+
+            //BFS
+        case 2:
+        {
+
+            break;
+        }
+
+            //Fecho transitivo direto
+        case 3:
+        {
+
+            break;
+        }
+
+            //Fecho transitivo indireto
+        case 4:
+        {
+
+
+
+            break;
+        }
+
+            //Algoritmo de Dijkstra
+        case 5:
+        {
+
+            break;
+        }
+
+            //Algoritmo de Floyd
+        case 6:
+        {
+
+            break;
+        }
+
+            //Algoritmo de Prim
+        case 7:
+        {
+
+
+            break;
+        }
+
+            //Algoritimo de Kruskal
+        case 8:
+        {
+
+            break;
+        }
+
+            //Fecho triádico
+        case 9:
+        {
+
+            break;
+        }
+
+    }
+
+}
+
+/**
+ * Junção do menu com as opções de escolha
+ * @param arquivo_saida
+ * @param grafo
+ * @return 
+ */
+int mainMenu(ofstream& arquivo_saida, Grafo* grafo) {
+
+    int opcao = 1;
+
+    while (opcao != 0) {
+        system("clear");
+        opcao = menu();
+
+        if (arquivo_saida.is_open())
+            selecionar(opcao, grafo, arquivo_saida);
+
+        else
+            cout << "Não foi possível abrir o arquivo de saída." << endl;
+
+        arquivo_saida << endl;
+
+    }
+
+    return 0;
+}
 
 /************************************************************
  *                  PROGRAMA PRINCIPAL                      *
