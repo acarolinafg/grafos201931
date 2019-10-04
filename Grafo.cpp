@@ -355,7 +355,7 @@ void Grafo::buscaBFS(int id) {
         cout << "Nós visitados a partir do vértice " << id << ": " << endl;
         for (int i = 0; i < tam; i++) {
             if (visitados[i] != 0) {
-                
+
                 cout << this->getNo(i)->getId() << "(" << visitados[i] << "º)" << endl;
 
             }
@@ -387,7 +387,7 @@ void Grafo::buscaDFS(int id) {
         cout << "Nós visitados a partir do vértice " << id << ": " << endl;
         for (int i = 0; i < tam; i++) {
             if (visitados[i] != 0) {
-                
+
                 cout << this->getNo(i)->getId() << "(" << visitados[i] << "º)" << endl;
 
             }
@@ -509,8 +509,8 @@ Grafo* Grafo::arvoreGeradoraMinimaPrim() {
  * @param vetor
  * @param n
  */
-void Grafo::ordenaArestaPeso(Aresta* vetor, int n){
-    
+void Grafo::ordenaArestaPeso(Aresta* vetor, int n) {
+
 }
 
 /**
@@ -523,7 +523,41 @@ Grafo* Grafo::arvoreGeradoraMinimaKruskall() {
 
 }
 
+/**
+ * Esta funcção calcula o fecho triadico do grafo e o coeficiente de agrupamento
+ */
 void Grafo::fechoTriadico() {
+    int abertos = 0; //quantidade de fechos abertos
+    int triadicos = 0; //quantidade de fechos triadicos
 
+    No* p, *q, *r; //nos para a avaliacao
+
+    for (int i = 0; i < this->getOrdem(); i++) {
+        p = this->getNo(i);
+
+        if (p != nullptr) {
+            for (int j = 0; j < this->getOrdem(); j++) {
+                q = this->getNo(j);
+
+                for (int k = 0; k < this->getOrdem(); k++) {
+                    r = this->getNo(k);
+
+                    if (p->buscarAresta(j) && p->buscarAresta(k)&&(i != k)&&(i != j)&&(j != k))//tres nos diferentes onde dois deles possuem um vizinho comum
+                    {
+                        abertos++;
+                        if (q->buscarAresta(k))//os nos com vizinho comum sao vizinhos entre si
+                            triadicos++;
+                    }
+                }
+            }
+        }
+
+    }
+    float total = triadicos + abertos;
+    float coeficienteAgrupamento = triadicos / total; //relacao entre triadicos e abertos
+
+    cout << triadicos << " fechos triadicos;" << endl;
+    cout << abertos << " fechos abertos;" << endl;
+    cout << "Coeficiente de agrupamento: " << coeficienteAgrupamento << endl;
 }
 
