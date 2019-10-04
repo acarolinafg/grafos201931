@@ -159,20 +159,27 @@ int menu() {
  * @param arquivo_saida
  */
 void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
-
+    int vertice;
     switch (opcao) {
 
-            //DFS
+            //BFS
         case 1:
         {
+            cout << "Informe um vértice:" << endl;
+            cin >> vertice;
 
+            grafo->caminhoLargura(vertice);
+            
             break;
         }
 
-            //BFS
+            //DFS
         case 2:
         {
+            cout << "Informe um vértice:" << endl;
+            cin >> vertice;
 
+            grafo->caminhoProfundidade(vertice);
             break;
         }
 
@@ -245,7 +252,7 @@ int mainMenu(ofstream& arquivo_saida, Grafo* grafo) {
     int opcao = 1;
 
     while (opcao != 0) {
-        system("clear");
+        //system("clear");
         opcao = menu();
 
         if (arquivo_saida.is_open())

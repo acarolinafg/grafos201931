@@ -27,7 +27,6 @@ No::No(int id) {
     this->primeiraAresta = nullptr;
     this->ultimaAresta = nullptr;
     this->proximoNo = nullptr;
-    this->visitado = false;
 }
 
 /**
@@ -101,14 +100,6 @@ No *No::getProximoNo() {
 }
 
 /**
- * Retorna o atributo que indica se o nó ja foi visitado
- * @return 
- */
-bool No::getVisitado() {
-    return this->visitado;
-}
-
-/**
  * Armazena o peso do nó
  * @param peso
  */
@@ -122,14 +113,6 @@ void No::setPeso(float peso) {
  */
 void No::setProximoNo(No* proximoNo) {
     this->proximoNo = proximoNo;
-}
-
-/**
- * Armazena o atribibuto que indica se o nó ja foi visitado
- * @param visitado
- */
-void No::setVisitado(bool visitado) {
-    this->visitado = visitado;
 }
 
 /**

@@ -260,6 +260,116 @@ void Grafo::imprimir() {
             p = p->getProximoNo();
         }
     } else {
-        cout << "Grafo sem nó e sem arestas";
+        cout << "Grafo nulo";
     }
 }
+
+/**
+ * Caminhamento em largura
+ * @param id
+ */
+void Grafo::caminhoLargura(int id) {
+    if (this->primeiroNo == nullptr) {
+        cout << "Grafo nulo" << endl;
+    } else if (!this->buscarNo(id)) {
+        cout << "Vértice não encontrado." << endl;
+    } else {
+        queue<No*> fila; // enfileirando p
+        int visitados[this->getOrdem()], cont = 1;
+
+        for (int i = 0; i < this->getOrdem(); i++)
+            visitados[i] = 0;
+
+        //iniciar a visita do primeiro nó
+        fila.push(this->getNo(id));
+        //marcar o nó p como visitado
+        visitados[id - 1] = cont;
+
+        //percorrendo a lista de nó
+        while (!fila.empty()) {
+            //visitar os vizinhos que ainda não foram visitados
+            No *p = fila.front();
+            Aresta *a = p->getPrimeiraAresta();
+            while (a != nullptr) {
+                No *v = this->getNo(a->getLabel());
+
+                if (visitados[v->getId() - 1] == 0) {
+                    fila.push(v);
+                    cont++;
+                    visitados[v->getId() - 1] = cont;
+                }
+                a = a->getProximaAresta();
+            }
+            //desenfileira
+            fila.pop();
+        }
+
+        //imprimir os vértices visitados
+        cout << "Nós visitados a partir do vértice " << id << ": " << endl;
+        for (int i = 0; i<this->getOrdem(); i++) {
+            if (visitados[i] != 0) {
+                id = i + 1;
+                cout << this->getNo(id)->getId() << "(" << visitados[i] << " º)";
+
+                if (i < this->getOrdem() - 1) {
+                    cout << ", ";
+                }
+            }
+        }
+        cout << endl;
+    }
+}
+
+/**
+ * Caminhamento em profundidade
+ * @param id
+ */
+void Grafo::caminhoProfundidade(int id) {
+    if (this->primeiroNo == nullptr) {
+        cout << "Grafo nulo" << endl;
+    } else if (!this->buscarNo(id)) {
+        cout << "Vértice não encontrado." << endl;
+    } else {
+        stack<No*> pilha;
+        int visitados[this->getOrdem()], cont = 1;
+
+        for (int i = 1; i<this->getOrdem(); i++)
+            visitados[i] = 0;
+
+        //iniciar a visita do primeiro nó
+        pilha.push(this->getNo(id));
+        //marcar o primeiro nó visitado
+        visitados[id - 1] = cont;
+
+        while (!pilha.empty()) {
+            No *p = pilha.top();
+            Aresta *a = p->getPrimeiraAresta();
+
+            while (a != nullptr) {
+                No *v = this->getNo(a->getLabel());
+                if (visitados[v->getId() - 1] == 0) {
+                    pilha.push(v); //empilha
+                    cont++;
+                    visitados[v->getId() - 1] = cont;
+                }
+                a = a->getProximaAresta();
+            }
+            pilha.pop(); //desempilha
+        }
+
+        //imprimir os vértices visitados
+        cout << "Nós visitados a partir do vértice " << id << ": " << endl;
+        for (int i = 0; i<this->getOrdem(); i++) {
+            if (visitados[i] != 0) {
+                id = i + 1;
+                cout << this->getNo(id)->getId() << "(" << visitados[i] << " º)";
+
+                if (i < this->getOrdem() - 1) {
+                    cout << ", ";
+                }
+            }
+        }
+        cout << endl;
+    }
+}
+

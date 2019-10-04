@@ -34,11 +34,9 @@ public:
     Aresta *getPrimeiraAresta();
     Aresta *getUltimaAresta();
     No *getProximoNo();
-    bool getVisitado();
     //Sets
     void setPeso(float peso);
     void setProximoNo(No *proximoNo);
-    void setVisitado(bool visitado);
     //Outros métodos
     bool buscarAresta(int label);
     Aresta *getAresta(int label);
@@ -54,7 +52,6 @@ private:
     float peso;
     unsigned int grau;
     unsigned int grauSaida;
-    bool visitado;
     Aresta *primeiraAresta;
     Aresta *ultimaAresta;
     No* proximoNo;

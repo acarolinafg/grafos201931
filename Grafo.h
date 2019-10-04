@@ -17,6 +17,8 @@
 #define GRAFO_H
 #include <iostream>
 #include <valarray>
+#include <queue>
+#include <stack>
 #include "Aresta.h"
 #include "No.h"
 #include "Grafo.h"
@@ -44,6 +46,8 @@ public:
     void inserirAresta(int id, int label, float peso);
     void removerNo(int id);
     void imprimir();
+    void caminhoLargura (int id);
+    void caminhoProfundidade (int id);
 private:
     //Atributos
     int ordem;
@@ -53,7 +57,6 @@ private:
     bool noPonderado;
     No* primeiroNo;
     No* ultimoNo;
-
 };
 
 #endif /* GRAFO_H */
