@@ -355,14 +355,10 @@ void Grafo::buscaBFS(int id) {
         for (int i = 0; i<this->getOrdem(); i++) {
             if (visitados[i] != 0) {
                 id = i + 1;
-                cout << this->getNo(id)->getId() << "(" << visitados[i] << " º)";
+                cout << this->getNo(id)->getId() << "(" << visitados[i] << "º)" << endl;
 
-                if (i < this->getOrdem() - 1) {
-                    cout << ", ";
-                }
             }
         }
-        cout << endl;
     }
 }
 
@@ -390,14 +386,13 @@ void Grafo::buscaDFS(int id) {
         for (int i = 0; i<this->getOrdem(); i++) {
             if (visitados[i] != 0) {
                 id = i + 1;
-                cout << this->getNo(id)->getId() << "(" << visitados[i] << " º)";
+                cout << this->getNo(id)->getId() << "(" << visitados[i] << "º)" << endl;;
 
                 if (i < this->getOrdem() - 1) {
                     cout << ", ";
                 }
             }
         }
-        cout << endl;
     }
 }
 

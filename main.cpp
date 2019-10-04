@@ -237,9 +237,6 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
 
     }
 
-    
-    escrita(arquivo_saida, grafo->clone());
-
 }
 
 /**
@@ -301,7 +298,7 @@ int main(int argc, char** argv) {
         grafo = leitura(arq_entrada, atoi(argv[3]), atoi(argv[4]), atoi(argv[5]));
     } else
         cout << "Não foi possível abrir o arquivo " << arq_entrada_nome << endl;
-
+    
     mainMenu(arq_saida, grafo);
 
     //Fechando arquivo de entrada
