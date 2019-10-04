@@ -145,6 +145,7 @@ int menu() {
     cout << "[7] Árvore Geradora Mínima de Prim" << endl;
     cout << "[8] Árvore Geradora Mínima de Kruskal" << endl;
     cout << "[9] Fecho triádico" << endl;
+    cout << "[10] Imprimir grafo" << endl;
     cout << "[0] Sair" << endl;
 
     cin >> selecao;
@@ -159,11 +160,10 @@ int menu() {
  * @param arquivo_saida
  */
 void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
-    int vertice;
+    int vertice, origem, destino;
     switch (opcao) {
 
-            //BFS
-        case 1:
+        case 1://BFS
         {
             cout << "Informe um vértice:" << endl;
             cin >> vertice;
@@ -172,9 +172,7 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
 
             break;
         }
-
-            //DFS
-        case 2:
+        case 2://DFS
         {
             cout << "Informe um vértice:" << endl;
             cin >> vertice;
@@ -182,63 +180,67 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
             grafo->buscaDFS(vertice);
             break;
         }
-
-            //Fecho transitivo direto
-        case 3:
+        case 3://Fecho transitivo direto
         {
             cout << "Informe um vértice:" << endl;
             cin >> vertice;
-            
+
             grafo->fechoTransitivoDireto(vertice);
             break;
         }
-
-            //Fecho transitivo indireto
-        case 4:
+        case 4://Fecho transitivo indireto
         {
             cout << "Informe um vértice:" << endl;
             cin >> vertice;
-            
+
             grafo->fechoTransitivoIndireto(vertice);
             break;
         }
-
-            //Algoritmo de Dijkstra
-        case 5:
+        case 5://Algoritmo de Dijkstra
         {
+            cout << "Informe o vértice de origem:" << endl;
+            cin >> origem;
+            cout << "Informe o vértice de destino:" << endl;
+            cin >> destino;
 
+            grafo->caminhoMinimoDjikstra(origem, destino);
+            break;
+        }
+        case 6://Algoritmo de Floyd
+        {
+            cout << "Informe o vértice de origem:" << endl;
+            cin >> origem;
+            cout << "Informe o vértice de destino:" << endl;
+            cin >> destino;
+
+            grafo->caminhoMinimoFloyd(origem, destino);
+            break;
+        }
+        case 7://Algoritmo de Prim
+        {
+            escrita(arquivo_saida, grafo->arvoreGeradoraMinimaPrim());
+            break;
+        }  
+        case 8: //Algoritimo de Kruskal
+        {
+            escrita(arquivo_saida, grafo->arvoreGeradoraMinimaKruskall());
+            break;
+        }
+        case 9://Fecho triádico
+        {
+            grafo->fechoTriadico();
+            break;
+        }
+        case 10://Imprimir o grafo
+        {
+            grafo->imprimir();
             break;
         }
 
-            //Algoritmo de Floyd
-        case 6:
-        {
-
-            break;
-        }
-
-            //Algoritmo de Prim
-        case 7:
-        {
-
-
-            break;
-        }
-
-            //Algoritimo de Kruskal
-        case 8:
-        {
-
-            break;
-        }
-
-            //Fecho triádico
-        case 9:
-        {
-
-            break;
-        }
-
+    }
+    
+    if(opcao <= 6 || opcao == 9){
+        escrita(arquivo_saida, grafo->clone());
     }
 
 }
@@ -252,7 +254,7 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
 int mainMenu(ofstream& arquivo_saida, Grafo* grafo) {
 
     int opcao = 1;
-
+    
     while (opcao != 0) {
         //system("clear");
         opcao = menu();
@@ -262,11 +264,9 @@ int mainMenu(ofstream& arquivo_saida, Grafo* grafo) {
 
         else
             cout << "Não foi possível abrir o arquivo de saída." << endl;
-    }
+        
+        arquivo_saida << endl;
 
-    //gravar o grafo
-    if (opcao == 0) {
-        escrita(arquivo_saida, grafo);
     }
 
     return 0;
@@ -302,7 +302,7 @@ int main(int argc, char** argv) {
         grafo = leitura(arq_entrada, atoi(argv[3]), atoi(argv[4]), atoi(argv[5]));
     } else
         cout << "Não foi possível abrir o arquivo " << arq_entrada_nome << endl;
-    
+
     mainMenu(arq_saida, grafo);
 
     //Fechando arquivo de entrada

@@ -50,6 +50,11 @@ public:
     void buscaDFS(int id);
     void fechoTransitivoDireto(int id);
     void fechoTransitivoIndireto(int id);
+    void caminhoMinimoDjikstra(int origem,int destino);
+    void caminhoMinimoFloyd(int origem, int destino);
+    Grafo *arvoreGeradoraMinimaKruskall();
+    Grafo *arvoreGeradoraMinimaPrim();
+    void fechoTriadico();
 private:
     //Atributos
     int ordem;
@@ -60,6 +65,7 @@ private:
     No* primeiroNo;
     No* ultimoNo;
     void dfs(int id, int *visitados, int cont);
+    void ordenaArestaPeso(Aresta* vetor, int n);
 };
 
 #endif /* GRAFO_H */

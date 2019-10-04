@@ -431,7 +431,7 @@ void Grafo::fechoTransitivoDireto(int id) {
     } else if (!this->buscarNo(id)) {
         cout << "Vértice não encontrado." << endl;
     } else {
-        cout << "Fecho transitivo direto do nó " << id << ":"<< endl;
+        cout << "Fecho transitivo direto do nó " << id << ":" << endl;
         No* p = this->getNo(id);
         Aresta* a = p->getPrimeiraAresta();
         while (a != (p->getUltimaAresta()->getProximaAresta())) {
@@ -469,3 +469,59 @@ void Grafo::fechoTransitivoIndireto(int id) {
     }
 
 }
+
+/**
+ * Imprime o caminho mínimo entre dois vértices e cancula seu custo pelo 
+ * algoritmo de Djikstra
+ * 
+ * @param origem
+ * @param destino
+ */
+void Grafo::caminhoMinimoDjikstra(int origem, int destino) {
+
+}
+
+/**
+ * Imprime o caminho mínimo entre dois vértices e cancula seu custo pelo 
+ * algoritmo de Floyd
+ * 
+ * @param origem
+ * @param destino
+ */
+void Grafo::caminhoMinimoFloyd(int origem, int destino) {
+
+}
+
+/**
+ * Dado um grafo não orientado a função retorna o conjunto de n-1 arestas que
+ * conectam todos os nós do grafo e cujo o peso somatório dos pesoso das arestas
+ * é mínimo usando o algoritimo de Prim
+ * @return 
+ */
+Grafo* Grafo::arvoreGeradoraMinimaPrim() {
+
+}
+
+/**
+ * Ordena as arestas pelo peso
+ * @param vetor
+ * @param n
+ */
+void Grafo::ordenaArestaPeso(Aresta* vetor, int n){
+    
+}
+
+/**
+ * Dado um grafo não orientado a função retorna o conjunto de n-1 arestas que
+ * conectam todos os nós do grafo e cujo o peso somatório dos pesoso das arestas
+ * é mínimo usando o algoritimo Kruskall
+ * @return 
+ */
+Grafo* Grafo::arvoreGeradoraMinimaKruskall() {
+
+}
+
+void Grafo::fechoTriadico() {
+
+}
+
