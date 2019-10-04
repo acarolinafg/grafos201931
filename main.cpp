@@ -83,36 +83,45 @@ void escrita(ofstream& arquivo, Grafo *grafo) {
         //Percorrendo o grafo
         No *p = grafo->getPrimeiroNo();
         Aresta * a;
+        int idNoOrigem, idNoDestino;
 
         while (p != nullptr) {
+            idNoOrigem = p->getId();
             a = p->getPrimeiraAresta();
 
             while (a != nullptr) {
+                idNoDestino = a->getLabel();
+
                 if (!grafo->getArestaPonderada() && !grafo->getNoPonderado()) {
-                    arquivo << p->getId() << " " << a->getLabel();
+                    arquivo << idNoOrigem << " " << idNoDestino;
                 } else if (grafo->getArestaPonderada() && !grafo->getNoPonderado()) {
-                    arquivo << p->getId() << " " << a->getLabel() << " " << a->getPeso();
+                    arquivo << idNoOrigem << " " << idNoDestino << " " << a->getPeso();
                 } else if (grafo->getNoPonderado() && !grafo->getArestaPonderada()) {
                     float pesoNoOrigem, pesoNoDestino;
                     pesoNoOrigem = p->getPeso();
-                    pesoNoDestino = grafo->getNo(a->getLabel())->getPeso();
+                    pesoNoDestino = grafo->getNo(idNoDestino)->getPeso();
 
-                    arquivo << p->getId() << " " << pesoNoOrigem << " " << a->getLabel() << " " << pesoNoDestino;
+                    arquivo << idNoOrigem << " " << pesoNoOrigem << " " << idNoDestino << " " << pesoNoDestino;
                 } else if (grafo->getArestaPonderada() && grafo->getNoPonderado()) {
                     float pesoNoOrigem, pesoNoDestino, pesoAresta;
                     pesoNoOrigem = p->getPeso();
-                    pesoNoDestino = grafo->getNo(a->getLabel())->getPeso();
+                    pesoNoDestino = grafo->getNo(idNoDestino)->getPeso();
                     pesoAresta = a->getPeso();
 
-                    arquivo << p->getId() << " " << pesoNoOrigem << " " << a->getLabel() << " " << pesoNoDestino << " " << pesoAresta;
+                    arquivo << idNoOrigem << " " << pesoNoOrigem << " " << idNoDestino << " " << pesoNoDestino << " " << pesoAresta;
                 }
-                
+
                 arquivo << endl;
 
                 a = a->getProximaAresta();
             }
 
             p = p->getProximoNo();
+
+            //remover nó para evitar duplicação de arestas no arquivo em caso de grafo dirigido
+            if (!grafo->getDirigido())
+                grafo->removerNo(idNoOrigem);
+
         }
     }
 }
