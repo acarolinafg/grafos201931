@@ -482,14 +482,42 @@ void Grafo::caminhoMinimoDjikstra(int origem, int destino) {
 }
 
 /**
- * Imprime o caminho mínimo entre dois vértices e cancula seu custo pelo 
+ * Imprime o caminho mínimo entre dois vértices e calcula seu custo pelo 
  * algoritmo de Floyd
  * 
  * @param origem
  * @param destino
  */
 void Grafo::caminhoMinimoFloyd(int origem, int destino) {
+    if (origem == destino) {
+        cout << "O caminho entre nos coincidentes custo: 0" << endl;
+    } else {
+        No* aux1; //no auxiliar
 
+        float Floyd[this->getOrdem()][this->getOrdem()]; //Matriz dos pesos do algoritmo de Floyd
+
+        float infinito = float(std::numeric_limits<int>::max());
+
+        Aresta* a;
+        for (int i = 0; i < this->getOrdem(); i++) {
+            aux1 = this->getNo(i);
+
+            for (int j = 0; j < this->getOrdem(); j++) {
+                if (aux1->buscarAresta(j)) {
+                    a = aux1->getAresta(j);
+                    Floyd[i][j] = a->getPeso(); //Colocando o custo no caminho dos adjacentes;
+                } else {
+                    Floyd[i][j] = infinito; //custo infinito para nao adjacentes
+                }
+            }
+        }
+        for (int k = 0; k < this->getOrdem(); k++)
+            for (int i = 0; i < this->getOrdem(); i++)
+                for (int j = 0; j < this->getOrdem(); j++)
+                    Floyd[i][j] = min(Floyd[i][j], Floyd[i][k] + Floyd[k][j]);
+
+        cout << "O menor caminho entre o No[" << origem << "] e o No[" << destino << "] e: " << Floyd[origem][destino] << endl;
+    }
 }
 
 /**
@@ -507,8 +535,8 @@ Grafo* Grafo::arvoreGeradoraMinimaPrim() {
  * @param vetor
  * @param n
  */
-void Grafo::ordenaArestaPeso(Aresta* vetor, int n) {
-
+void Grafo::ordenaArestaPeso(Aresta *vetor, int n) {
+    
 }
 
 /**
@@ -518,7 +546,7 @@ void Grafo::ordenaArestaPeso(Aresta* vetor, int n) {
  * @return 
  */
 Grafo* Grafo::arvoreGeradoraMinimaKruskall() {
-
+    
 }
 
 /**
@@ -559,3 +587,55 @@ void Grafo::fechoTriadico() {
     cout << "Coeficiente de agrupamento: " << coeficienteAgrupamento << endl;
 }
 
+/**
+ * Verifica se o grafo é completo
+ * @return 
+ */
+bool Grafo::isCompleto() {
+    int maxArestas = (ordem * (ordem - 1)) / 2;
+
+    if (maxArestas == nArestas)
+        return true;
+    else
+        return false;
+}
+
+/**
+ * Verifica se o grafo é conexo
+ * @return 
+ */
+bool Grafo::isConexo() {
+    if (this->isCompleto())
+        return true;
+
+    int visitados[this->getOrdem()], cont = 1;
+
+    for (int i = 0; i < this->getOrdem(); i++)
+        visitados[i] = 0;
+
+    //iniciar a busca a partir do primeiro nó do grafo
+    this->dfs(this->primeiroNo->getId(), visitados, cont);
+
+    //total de nós visitados
+    int total = 0;
+    for (int i = 0; i < this->getOrdem(); i++) {
+        if (visitados[i] != 0) {
+            total++;
+        }
+    }
+
+    if (total == getOrdem()) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Verifica se um grafo é nulo
+ * @return 
+ */
+bool Grafo::nulo() {
+    if (this->ordem == 0 && this->nArestas == 0)
+        return true;
+    return false;
+}

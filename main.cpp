@@ -220,10 +220,14 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
         {
             escrita(arquivo_saida, grafo->arvoreGeradoraMinimaPrim());
             break;
-        }  
+        }
         case 8: //Algoritimo de Kruskal
         {
-            escrita(arquivo_saida, grafo->arvoreGeradoraMinimaKruskall());
+            Grafo *arv = grafo->arvoreGeradoraMinimaKruskall();
+            if (!arv->nulo())
+                escrita(arquivo_saida, arv);
+            else
+                cout << "Não foi possível escrever árvore no arquivo de saída." << endl;
             break;
         }
         case 9://Fecho triádico
@@ -238,8 +242,8 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
         }
 
     }
-    
-    if(opcao <= 6 || opcao == 9){
+
+    if (opcao <= 6 || opcao == 9) {
         escrita(arquivo_saida, grafo->clone());
     }
 
@@ -254,7 +258,7 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
 int mainMenu(ofstream& arquivo_saida, Grafo* grafo) {
 
     int opcao = 1;
-    
+
     while (opcao != 0) {
         //system("clear");
         opcao = menu();
@@ -264,7 +268,7 @@ int mainMenu(ofstream& arquivo_saida, Grafo* grafo) {
 
         else
             cout << "Não foi possível abrir o arquivo de saída." << endl;
-        
+
         arquivo_saida << endl;
 
     }

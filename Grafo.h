@@ -55,6 +55,7 @@ public:
     Grafo *arvoreGeradoraMinimaKruskall();
     Grafo *arvoreGeradoraMinimaPrim();
     void fechoTriadico();
+    bool nulo();
 private:
     //Atributos
     int ordem;
@@ -65,7 +66,9 @@ private:
     No* primeiroNo;
     No* ultimoNo;
     void dfs(int id, int *visitados, int cont);
-    void ordenaArestaPeso(Aresta* vetor, int n);
+    void ordenaArestaPeso(Aresta *vetor, int n);
+    bool isCompleto();
+    bool isConexo();
 };
 
 #endif /* GRAFO_H */
