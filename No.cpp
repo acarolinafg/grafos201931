@@ -27,6 +27,7 @@ No::No(int id) {
     this->primeiraAresta = nullptr;
     this->ultimaAresta = nullptr;
     this->proximoNo = nullptr;
+    this->visitado = false;
 }
 
 /**
@@ -100,6 +101,14 @@ No *No::getProximoNo() {
 }
 
 /**
+ * Retorna o atributo que indica se o nó ja foi visitado
+ * @return 
+ */
+bool No::getVisitado() {
+    return this->visitado;
+}
+
+/**
  * Armazena o peso do nó
  * @param peso
  */
@@ -113,6 +122,14 @@ void No::setPeso(float peso) {
  */
 void No::setProximoNo(No* proximoNo) {
     this->proximoNo = proximoNo;
+}
+
+/**
+ * Armazena o atribibuto que indica se o nó ja foi visitado
+ * @param visitado
+ */
+void No::setVisitado(bool visitado) {
+    this->visitado = visitado;
 }
 
 /**
@@ -180,33 +197,33 @@ void No::inserirAresta(int label, float peso) {
  */
 bool No::removerAresta(int label, bool dirigido) {
     //se a aresta existir vamos excluir 
-    if(this->buscarAresta(label)){
+    if (this->buscarAresta(label)) {
         Aresta *aux = this->primeiraAresta;
         Aresta *anterior = nullptr;
         //percorrer a lista de arestas 
-        while(aux->getLabel()!= label){
+        while (aux->getLabel() != label) {
             anterior = aux;
             aux = aux->getProximaAresta();
         }
-        
+
         //mantendo a lista
-        if(anterior!= nullptr)
+        if (anterior != nullptr)
             anterior->setProximaAresta(aux->getProximaAresta());
         else
             this->primeiraAresta = aux->getProximaAresta();
-        
-        if(aux == this->ultimaAresta)
+
+        if (aux == this->ultimaAresta)
             this->ultimaAresta = anterior;
-        
-        if(aux->getProximaAresta() == this->ultimaAresta)
+
+        if (aux->getProximaAresta() == this->ultimaAresta)
             this->ultimaAresta = aux->getProximaAresta();
-        
+
         //delete aux;
-        
+
         //verificando se o grafo é direcionado
-        if(dirigido){
+        if (dirigido) {
             this->decrementarGrauSaida();
-        }else{
+        } else {
             this->decrementarGrau();
         }
         return true;
@@ -217,19 +234,19 @@ bool No::removerAresta(int label, bool dirigido) {
 /**
  * Remove todas as arestas do nó
  */
-void No::removerTodasAresta(){
-    if(this->primeiraAresta!= nullptr){
+void No::removerTodasAresta() {
+    if (this->primeiraAresta != nullptr) {
         Aresta *prox = this->primeiraAresta;
-        
-        while(prox!= nullptr){
+
+        while (prox != nullptr) {
             Aresta *aux = prox->getProximaAresta();
             delete prox;
             prox = aux;
         }
-        
+
         //atualizar o grau do nó
         this->grauSaida = this->grau = 0;
-        
+
         //atualizar o ponteiro da lista de adjacentes
         this->primeiraAresta = this->ultimaAresta = nullptr;
     }
