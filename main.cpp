@@ -237,7 +237,8 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
 
     }
 
-    escrita(arquivo_saida, grafo);
+    
+    escrita(arquivo_saida, grafo->clone());
 
 }
 

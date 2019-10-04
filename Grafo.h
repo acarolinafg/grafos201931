@@ -47,6 +47,7 @@ public:
     void imprimir();
     void buscaBFS(int id);
     void buscaDFS(int id);
+    Grafo *clone();
 private:
     //Atributos
     int ordem;

@@ -265,6 +265,52 @@ void Grafo::imprimir() {
 }
 
 /**
+ * Realiza uma cópia da estrutura do grafo
+ * @return 
+ */
+Grafo *Grafo::clone() {
+    if (this->primeiroNo != nullptr) {
+        Grafo * g = new Grafo(this->dirigido, this->arestaPoderada, this->noPonderado);
+
+        No *p = this->primeiroNo;
+        while (p != nullptr) {
+            Aresta *a = p->getPrimeiraAresta();
+
+            while (a != nullptr) {
+                if (!g->getArestaPonderada() && !g->getNoPonderado()) {
+
+                    g->inserirAresta(p->getId(), a->getLabel(), 0);
+
+                } else if (g->getArestaPonderada() && !g->getNoPonderado()) {
+
+                    g->inserirAresta(p->getId(), a->getLabel(), a->getLabel());
+
+                } else if (g->getNoPonderado() && !g->getArestaPonderada()) {
+
+                    g->inserirAresta(p->getId(), a->getLabel(), 0);
+                    g->getNo(p->getId())->setPeso(p->getPeso());
+
+                    No *destino = this->getNo(a->getLabel());
+                    g->getNo(destino->getId())->setPeso(destino->getPeso());
+
+                } else if (g->getArestaPonderada() && g->getNoPonderado()) {
+
+                    g->inserirAresta(p->getId(), a->getLabel(), a->getLabel());
+                    g->getNo(p->getId())->setPeso(p->getPeso());
+
+                    No *destino = this->getNo(a->getLabel());
+                    g->getNo(destino->getId())->setPeso(destino->getPeso());
+                }
+                a = a->getProximaAresta();
+            }
+            p = p->getProximoNo();
+        }
+    }else {
+        cout << "Grafo nulo";
+    }
+}
+
+/**
  * Caminhamento em largura
  * @param id
  */
