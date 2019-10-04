@@ -78,7 +78,7 @@ Grafo *leitura(ifstream& arquivo, int dirigido, int arestaPonderada, int noPonde
 void escrita(ofstream& arquivo, Grafo *grafo) {
     if (grafo != nullptr && grafo->getOrdem() > 0) {
         //Gravando a ordem do grafo
-        arquivo << grafo->getOrdem();
+        arquivo << grafo->getOrdem() << endl;
 
         //Percorrendo o grafo
         No *p = grafo->getPrimeiroNo();
@@ -89,23 +89,25 @@ void escrita(ofstream& arquivo, Grafo *grafo) {
 
             while (a != nullptr) {
                 if (!grafo->getArestaPonderada() && !grafo->getNoPonderado()) {
-                    arquivo << p->getId() << a->getLabel();
+                    arquivo << p->getId() << " " << a->getLabel();
                 } else if (grafo->getArestaPonderada() && !grafo->getNoPonderado()) {
-                    arquivo << p->getId() << a->getLabel() << a->getPeso();
+                    arquivo << p->getId() << " " << a->getLabel() << " " << a->getPeso();
                 } else if (grafo->getNoPonderado() && !grafo->getArestaPonderada()) {
                     float pesoNoOrigem, pesoNoDestino;
                     pesoNoOrigem = p->getPeso();
                     pesoNoDestino = grafo->getNo(a->getLabel())->getPeso();
 
-                    arquivo << p->getId() << pesoNoOrigem << a->getLabel() << pesoNoDestino;
+                    arquivo << p->getId() << " " << pesoNoOrigem << " " << a->getLabel() << " " << pesoNoDestino;
                 } else if (grafo->getArestaPonderada() && grafo->getNoPonderado()) {
                     float pesoNoOrigem, pesoNoDestino, pesoAresta;
                     pesoNoOrigem = p->getPeso();
                     pesoNoDestino = grafo->getNo(a->getLabel())->getPeso();
                     pesoAresta = a->getPeso();
 
-                    arquivo << p->getId() << pesoNoOrigem << a->getLabel() << pesoNoDestino << pesoAresta;
+                    arquivo << p->getId() << " " << pesoNoOrigem << " " << a->getLabel() << " " << pesoNoDestino << " " << pesoAresta;
                 }
+                
+                arquivo << endl;
 
                 a = a->getProximaAresta();
             }
@@ -252,6 +254,6 @@ int mainMenu(ofstream& arquivo_saida, Grafo* grafo) {
  *                  PROGRAMA PRINCIPAL                      *
  ***********************************************************/
 int main(int argc, char** argv) {
-
+    
     return 0;
 }
