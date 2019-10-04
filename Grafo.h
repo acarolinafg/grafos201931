@@ -18,7 +18,6 @@
 #include <iostream>
 #include <valarray>
 #include <queue>
-#include <stack>
 #include "Aresta.h"
 #include "No.h"
 #include "Grafo.h"
@@ -46,8 +45,8 @@ public:
     void inserirAresta(int id, int label, float peso);
     void removerNo(int id);
     void imprimir();
-    void caminhoLargura (int id);
-    void caminhoProfundidade (int id);
+    void buscaBFS(int id);
+    void buscaDFS(int id);
 private:
     //Atributos
     int ordem;
@@ -57,6 +56,7 @@ private:
     bool noPonderado;
     No* primeiroNo;
     No* ultimoNo;
+    void dfs(int id, int *visitados, int cont);
 };
 
 #endif /* GRAFO_H */

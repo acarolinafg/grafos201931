@@ -168,8 +168,8 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
             cout << "Informe um vértice:" << endl;
             cin >> vertice;
 
-            grafo->caminhoLargura(vertice);
-            
+            grafo->buscaBFS(vertice);
+
             break;
         }
 
@@ -179,7 +179,7 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
             cout << "Informe um vértice:" << endl;
             cin >> vertice;
 
-            grafo->caminhoProfundidade(vertice);
+            grafo->buscaDFS(vertice);
             break;
         }
 
