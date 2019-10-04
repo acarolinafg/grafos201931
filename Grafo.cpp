@@ -321,10 +321,9 @@ void Grafo::buscaBFS(int id) {
         cout << "Vértice não encontrado." << endl;
     } else {
         queue<No*> fila; // enfileirando p
-        int tam = this->getOrdem() + 1; //tamanho do vetor de visitados
-        int visitados[tam], cont = 1;
+        int visitados[this->getOrdem()], cont = 1;
 
-        for (int i = 0; i < tam; i++)
+        for (int i = 0; i < this->getOrdem(); i++)
             visitados[i] = 0;
 
         //iniciar a visita do primeiro nó
@@ -353,7 +352,7 @@ void Grafo::buscaBFS(int id) {
 
         //imprimir os vértices visitados
         cout << "Nós visitados a partir do vértice " << id << ": " << endl;
-        for (int i = 0; i < tam; i++) {
+        for (int i = 0; i < this->getOrdem(); i++) {
             if (visitados[i] != 0) {
 
                 cout << this->getNo(i)->getId() << "(" << visitados[i] << "º)" << endl;
@@ -374,10 +373,9 @@ void Grafo::buscaDFS(int id) {
     } else if (!this->buscarNo(id)) {
         cout << "Vértice não encontrado." << endl;
     } else {
-        int tam = this->getOrdem() + 1; //tamanho do vetor de visitados
-        int visitados[tam], cont = 1;
+        int visitados[this->getOrdem()], cont = 1;
 
-        for (int i = 0; i < tam; i++)
+        for (int i = 0; i < this->getOrdem(); i++)
             visitados[i] = 0;
 
         //iniciar a busca
@@ -385,7 +383,7 @@ void Grafo::buscaDFS(int id) {
 
         //imprimir os vértices visitados
         cout << "Nós visitados a partir do vértice " << id << ": " << endl;
-        for (int i = 0; i < tam; i++) {
+        for (int i = 0; i < this->getOrdem(); i++) {
             if (visitados[i] != 0) {
 
                 cout << this->getNo(i)->getId() << "(" << visitados[i] << "º)" << endl;
