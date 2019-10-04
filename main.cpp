@@ -186,16 +186,20 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
             //Fecho transitivo direto
         case 3:
         {
-
+            cout << "Informe um vértice:" << endl;
+            cin >> vertice;
+            
+            grafo->fechoTransitivoDireto(vertice);
             break;
         }
 
             //Fecho transitivo indireto
         case 4:
         {
-
-
-
+            cout << "Informe um vértice:" << endl;
+            cin >> vertice;
+            
+            grafo->fechoTransitivoIndireto(vertice);
             break;
         }
 

@@ -45,9 +45,11 @@ public:
     void inserirAresta(int id, int label, float peso);
     void removerNo(int id);
     void imprimir();
+    Grafo *clone();
     void buscaBFS(int id);
     void buscaDFS(int id);
-    Grafo *clone();
+    void fechoTransitivoDireto(int id);
+    void fechoTransitivoIndireto(int id);
 private:
     //Atributos
     int ordem;

@@ -305,7 +305,7 @@ Grafo *Grafo::clone() {
             }
             p = p->getProximoNo();
         }
-    }else {
+    } else {
         cout << "Grafo nulo";
     }
 }
@@ -386,11 +386,8 @@ void Grafo::buscaDFS(int id) {
         for (int i = 0; i<this->getOrdem(); i++) {
             if (visitados[i] != 0) {
                 id = i + 1;
-                cout << this->getNo(id)->getId() << "(" << visitados[i] << "º)" << endl;;
+                cout << this->getNo(id)->getId() << "(" << visitados[i] << "º)" << endl;
 
-                if (i < this->getOrdem() - 1) {
-                    cout << ", ";
-                }
             }
         }
     }
@@ -420,4 +417,55 @@ void Grafo::dfs(int i, int *visitados, int cont) {
 
         a = a->getProximaAresta();
     }
+}
+
+/**
+ * Imprime o id de todo nó alcançavel pelo no de id passado
+ * @param id
+ */
+void Grafo::fechoTransitivoDireto(int id) {
+    if (this->primeiroNo == nullptr) {
+        cout << "Grafo nulo" << endl;
+    } else if (!this->getDirigido()) {
+        cout << "Grafo não orientado." << endl;
+    } else if (!this->buscarNo(id)) {
+        cout << "Vértice não encontrado." << endl;
+    } else {
+        cout << "Fecho transitivo direto do nó " << id << ":"<< endl;
+        No* p = this->getNo(id);
+        Aresta* a = p->getPrimeiraAresta();
+        while (a != (p->getUltimaAresta()->getProximaAresta())) {
+            cout << "No: " << a->getLabel() << endl;
+            a = a->getProximaAresta();
+        }
+    }
+}
+
+/**
+ * Imprime todo nó que pode alcançar o nó de id por um caminho direcionado
+ * @param id
+ */
+void Grafo::fechoTransitivoIndireto(int id) {
+    if (this->primeiroNo == nullptr) {
+        cout << "Grafo nulo" << endl;
+    } else if (!this->getDirigido()) {
+        cout << "Grafo não orientado." << endl;
+    } else if (!this->buscarNo(id)) {
+        cout << "Vértice não encontrado." << endl;
+    } else {
+        cout << "Fecho transitivo indireto do nó " << id << ":" << endl;
+
+        No* busca = this->primeiroNo;
+        Aresta* a = busca->getPrimeiraAresta();
+        while (busca != nullptr) {
+            while (a != (busca->getUltimaAresta()->getProximaAresta())) {
+                if (a->getLabel() == id)
+                    cout << "No: " << busca->getId() << endl;
+                a = a->getProximaAresta();
+            }
+            busca = busca->getProximoNo();
+            a = busca->getPrimeiraAresta();
+        }
+    }
+
 }
