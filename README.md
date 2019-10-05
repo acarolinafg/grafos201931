@@ -7,6 +7,8 @@
 **Professor:** Stênio Sã Rosário Furtado Soares             
 **Aluna:**                  
  * Ana Carolina Fidelis Gonçalves - acarolinafg@gmail.com 
+ * Paulo Sergio de Oliveira Silva 
+	
  
 ## Orientações para compilar ##
 Deve ser passado 2 argumentos para iniciar o programa, são eles:
@@ -17,5 +19,5 @@ Executar:
 1. Vai pelo terminal até a pasta que você salvou e digite para compilar:
 `g++ main.cpp -o meuPrograma`
 2. Para executar:
-`./meuPrograma grafos.txt resultados.txt`
+`./meuPrograma arquivo_entrada.txt arquivo_saida.txt dirigido ponderado_aresta ponderado_no`
 
