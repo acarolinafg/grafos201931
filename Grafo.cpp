@@ -320,7 +320,7 @@ void Grafo::buscaBFS(int id) {
     } else if (!this->buscarNo(id)) {
         cout << "Vértice não encontrado." << endl;
     } else {
-        queue<No*> fila; // enfileirando p
+        queue<No*> fila;
         int visitados[this->getOrdem()], cont = 1;
 
         for (int i = 0; i < this->getOrdem(); i++)
@@ -478,7 +478,65 @@ void Grafo::fechoTransitivoIndireto(int id) {
  * @param destino
  */
 void Grafo::caminhoMinimoDjikstra(int origem, int destino) {
+    if (origem == destino) {
+        cout << "Origem e destino coicidem, portanto a distancia é 0" << endl;
+    } else if (!this->buscarNo(origem) || !this->buscarNo(destino)) {
+        cout << "Pelo menos um dos vértices não está no grafo" << endl;
+    } else {
+        //definição do valor infinito
+        float INFINITO = float(std::numeric_limits<int>::max());
 
+        //vetor de custos
+        float distancias[this->getOrdem()];
+
+        //vetor de visitados para não expandir um nó ja visitado
+        int visitados[this->getOrdem()];
+
+        //fila de prioridade
+        queue<No*> fila;
+
+        //incializar o vetor de custos
+        for (int i = 0; i < this->getOrdem(); i++) {
+            distancias[i] = INFINITO;
+            visitados[i] = 0;
+        }
+
+        //distancia da origem para origem é 0
+        distancias[origem] = 0;
+
+        //inserir o vértice de origem na fila
+        fila.push(this->getNo(origem));
+
+        //percorrendo a lista de nó
+        while (!fila.empty()) {
+            //vertice a ser expandido
+            No *p = fila.front();
+
+            //desenfileira
+            fila.pop();
+
+            // verifica se o vértice não foi expandido
+            if (visitados[p->getId()] == 0) {
+                visitados[p->getId()] = 1;
+
+                //percorrer seus adjacentes
+                Aresta *a = p->getPrimeiraAresta();
+                while (a != nullptr) {
+                    //relaxamento (p,a)
+                    if (distancias[a->getLabel()] > (distancias[p->getId()] + a->getPeso())) {
+                        //atualizar a distância 
+                        distancias[a->getLabel()] = distancias[p->getId()] + a->getPeso();
+                        //inserir na fila
+                        fila.push(this->getNo(a->getLabel()));
+                    }
+                    a = a->getProximaAresta();
+                }
+            }
+        }
+
+        cout << "O menor caminho entre o No[" << origem << "] e o No[" << destino << "] é: " << distancias[destino] << endl;
+
+    }
 }
 
 /**
@@ -496,7 +554,7 @@ void Grafo::caminhoMinimoFloyd(int origem, int destino) {
 
         float Floyd[this->getOrdem()][this->getOrdem()]; //Matriz dos pesos do algoritmo de Floyd
 
-        float infinito = float(std::numeric_limits<int>::max());
+        float INFINITO = float(std::numeric_limits<int>::max());
 
         Aresta* a;
         for (int i = 0; i < this->getOrdem(); i++) {
@@ -507,7 +565,7 @@ void Grafo::caminhoMinimoFloyd(int origem, int destino) {
                     a = aux1->getAresta(j);
                     Floyd[i][j] = a->getPeso(); //Colocando o custo no caminho dos adjacentes;
                 } else {
-                    Floyd[i][j] = infinito; //custo infinito para nao adjacentes
+                    Floyd[i][j] = INFINITO; //custo infinito para nao adjacentes
                 }
             }
         }
@@ -536,7 +594,7 @@ Grafo* Grafo::arvoreGeradoraMinimaPrim() {
  * @param n
  */
 void Grafo::ordenaArestaPeso(Aresta *vetor, int n) {
-    
+
 }
 
 /**
@@ -546,7 +604,7 @@ void Grafo::ordenaArestaPeso(Aresta *vetor, int n) {
  * @return 
  */
 Grafo* Grafo::arvoreGeradoraMinimaKruskall() {
-    
+
 }
 
 /**
