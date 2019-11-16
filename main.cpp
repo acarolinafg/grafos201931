@@ -147,6 +147,7 @@ int menu() {
     cout << "[8] Árvore Geradora Mínima de Kruskal" << endl;
     cout << "[9] Fecho triádico" << endl;
     cout << "[10] Imprimir grafo" << endl;
+    cout << "[11] Grafo conexo" << endl;
     cout << "[0] Sair" << endl;
 
     cin >> selecao;
@@ -239,6 +240,15 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
         case 10://Imprimir o grafo
         {
             grafo->imprimir();
+            break;
+        }
+        case 11:
+        {
+            if (grafo->isConexo()) {
+                cout << "Grafo conexo." << endl;
+            } else {
+                cout << "Grafo desconexo." << endl;
+            }
             break;
         }
 
