@@ -283,6 +283,13 @@ int mainMenu(ofstream& arquivo_saida, Grafo* grafo) {
         arquivo_saida << endl;
 
     }
+    
+    //Armazenando o grafo final
+    if (opcao == 0) {
+        arquivo_saida.is_open();
+        escrita(arquivo_saida, grafo);
+        arquivo_saida << endl;
+    }
 
     return 0;
 }
