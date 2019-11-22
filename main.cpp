@@ -28,7 +28,7 @@ Grafo *leitura(ifstream& arquivo, int dirigido, int arestaPonderada, int noPonde
     int idNoDestino;
 
     //Leitura da Ordem do grafo
-    if(inicioGrafo == 0)
+    if (inicioGrafo == 0)
         arquivo >> ordem; //leitura a partir da segunda linha do arquivo
 
     //Criação do Grafo
@@ -248,11 +248,6 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
         }
 
     }
-
-    if (opcao <= 6 || opcao >= 9) {
-        escrita(arquivo_saida, grafo->clone());
-    }
-
 }
 
 /**
@@ -275,6 +270,10 @@ int mainMenu(ofstream& arquivo_saida, Grafo* grafo) {
         else
             cout << "Não foi possível abrir o arquivo de saída." << endl;
 
+    }
+    
+    if(opcao == 0){
+        escrita(arquivo_saida, grafo);
     }
 
     return 0;
@@ -315,11 +314,9 @@ int main(int argc, char** argv) {
             //considera a leitura do grafo a partir da segunda linha
             grafo = leitura(arq_entrada, atoi(argv[3]), atoi(argv[4]), atoi(argv[5]), 0);
         }
-
+        mainMenu(arq_saida, grafo);
     } else
         cout << "Não foi possível abrir o arquivo " << arq_entrada_nome << endl;
-    
-    mainMenu(arq_saida, grafo);
 
     //Fechando arquivo de entrada
     arq_entrada.close();
