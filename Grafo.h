@@ -59,6 +59,7 @@ public:
     bool nulo();
     bool isConexo();
     bool isCompleto();
+    bool isNoArticulacao(int id);
 private:
     //Atributos
     int ordem;

@@ -705,7 +705,35 @@ bool Grafo::isConexo() {
  * @return 
  */
 bool Grafo::nulo() {
-    if (this->ordem == 0 && this->nArestas == 0)
+    if (this->primeiroNo == nullptr || this->ordem == 0 && this->nArestas == 0)
         return true;
     return false;
+}
+
+/**
+ * Verifica se um nó é nó de articulação
+ * @param id
+ * @return 
+ */
+bool Grafo::isNoArticulacao(int id) {
+    if (!this->buscarNo(id))
+        return false;
+    else {
+        //Criar uma cópia do grafo
+        Grafo *g = this->clone();
+        if (!g->nulo()) {
+            //remover o grafo
+            g->removerNo(id);
+            //consegui alcançar todos os nós após remover id? Grafo é conexo, logo id não é de articulação
+            if (g->isConexo()) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } else {
+            cout << "Grafo nulo." << endl;
+            return 0;
+        }
+    }
 }
