@@ -291,7 +291,7 @@ Grafo *Grafo::clone() {
             Aresta *a = p->getPrimeiraAresta();
             No* no = g->getNo(p->getId());
             no->setGrau(p->getGrau());
-            
+
             while (a != nullptr) {
                 if (!g->getArestaPonderada() && !g->getNoPonderado()) {
                     no->inserirAresta(a->getLabel(), 0);
@@ -311,7 +311,7 @@ Grafo *Grafo::clone() {
 
             p = p->getProximoNo();
         }
-        
+
         return g;
     } else {
         cout << "Grafo nulo";
@@ -333,12 +333,13 @@ void Grafo::buscaBFS(int id) {
         int visitados[this->getOrdem()], cont = 1;
 
         for (int i = 0; i < this->getOrdem(); i++)
-            visitados[i] = 0;
+            visitados[i] = -1;
 
         //iniciar a visita do primeiro nó
-        fila.push(this->getNo(id));
+        No *no = this->getNo(id);
+        fila.push(no);
         //marcar o nó p como visitado
-        visitados[id] = cont;
+        visitados[no->getIdInterno()] = cont;
 
         //percorrendo a lista de nó
         while (!fila.empty()) {
@@ -348,10 +349,10 @@ void Grafo::buscaBFS(int id) {
             while (a != nullptr) {
                 No *v = this->getNo(a->getLabel());
 
-                if (visitados[v->getId()] == 0) {
+                if (visitados[v->getIdInterno()] == -1) {
                     fila.push(v);
                     cont++;
-                    visitados[v->getId()] = cont;
+                    visitados[v->getIdInterno()] = cont;
                 }
                 a = a->getProximaAresta();
             }
@@ -362,7 +363,7 @@ void Grafo::buscaBFS(int id) {
         //imprimir os vértices visitados
         cout << "Nós visitados a partir do vértice " << id << ": " << endl;
         for (int i = 0; i < this->getOrdem(); i++) {
-            if (visitados[i] != 0) {
+            if (visitados[i] != -1) {
 
                 cout << this->getNo(i)->getId() << "(" << visitados[i] << "º)" << endl;
 
@@ -385,7 +386,7 @@ void Grafo::buscaDFS(int id) {
         int visitados[this->getOrdem()], cont = 1;
 
         for (int i = 0; i < this->getOrdem(); i++)
-            visitados[i] = 0;
+            visitados[i] = -1;
 
         //iniciar a busca
         this->dfs(id, visitados, cont);
@@ -393,7 +394,7 @@ void Grafo::buscaDFS(int id) {
         //imprimir os vértices visitados
         cout << "Nós visitados a partir do vértice " << id << ": " << endl;
         for (int i = 0; i < this->getOrdem(); i++) {
-            if (visitados[i] != 0) {
+            if (visitados[i] != -1) {
 
                 cout << this->getNo(i)->getId() << "(" << visitados[i] << "º)" << endl;
 
@@ -404,25 +405,27 @@ void Grafo::buscaDFS(int id) {
 
 /**
  * Realiza a busca em profundidade dos nós
- * @param i
+ * @param id
  * @param visitados
  * @param cont
  * @return 
  */
-void Grafo::dfs(int i, int *visitados, int cont) {
-    No *p = this->getNo(i);
+void Grafo::dfs(int id, int *visitados, int cont) {
+    No *p = this->getNo(id);
     Aresta *a = p->getPrimeiraAresta();
 
     //Marcar o nó como visitado
+    int i = p->getIdInterno();
     visitados[i] = cont;
 
     //visitar seus vizinhos
     while (a != nullptr) {
         //atualizar o i
-        i = a->getLabel();
+        No *noAresta = this->getNo(a->getLabel());
+        i = noAresta->getIdInterno();
 
-        if (visitados[i] == 0)
-            dfs(i, visitados, cont + 1);
+        if (visitados[i] == -1)
+            dfs(a->getLabel(), visitados, cont + 1);
 
         a = a->getProximaAresta();
     }
@@ -678,7 +681,7 @@ bool Grafo::isConexo() {
     int visitados[this->getOrdem()], cont = 1;
 
     for (int i = 0; i < this->getOrdem(); i++)
-        visitados[i] = 0;
+        visitados[i] = -1;
 
     //iniciar a busca a partir do primeiro nó do grafo
     this->dfs(this->primeiroNo->getId(), visitados, cont);
@@ -686,7 +689,7 @@ bool Grafo::isConexo() {
     //total de nós visitados
     int total = 0;
     for (int i = 0; i < this->getOrdem(); i++) {
-        if (visitados[i] != 0) {
+        if (visitados[i] != -1) {
             total++;
         }
     }

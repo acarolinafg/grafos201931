@@ -58,6 +58,7 @@ public:
     void fechoTriadico();
     bool nulo();
     bool isConexo();
+    bool isCompleto();
 private:
     //Atributos
     int ordem;
@@ -69,7 +70,7 @@ private:
     No* ultimoNo;
     void dfs(int id, int *visitados, int cont);
     void ordenaArestaPeso(Aresta *vetor, int n);
-    bool isCompleto();    
+        
 };
 
 #endif /* GRAFO_H */
