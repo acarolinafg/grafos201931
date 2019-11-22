@@ -27,14 +27,15 @@ using namespace std;
  * @param noPonderado
  * @return 
  */
-Grafo *leitura(ifstream& arquivo, int dirigido, int arestaPonderada, int noPonderado) {
+Grafo *leitura(ifstream& arquivo, int dirigido, int arestaPonderada, int noPonderado, int inicioGrafo) {
     //Variáveis auxiliares
     int ordem;
     int idNoOrigem;
     int idNoDestino;
 
     //Leitura da Ordem do grafo
-    arquivo >> ordem;
+    if(inicioGrafo == 0)
+        arquivo >> ordem; //leitura a partir da segunda linha do arquivo
 
     //Criação do Grafo
     Grafo *grafo = new Grafo(dirigido, arestaPonderada, noPonderado);
@@ -254,7 +255,7 @@ void selecionar(int opcao, Grafo* grafo, ofstream& arquivo_saida) {
 
     }
 
-    if (opcao <= 6 || opcao == 9) {
+    if (opcao <= 6 || opcao >= 9) {
         escrita(arquivo_saida, grafo->clone());
     }
 
@@ -280,15 +281,6 @@ int mainMenu(ofstream& arquivo_saida, Grafo* grafo) {
         else
             cout << "Não foi possível abrir o arquivo de saída." << endl;
 
-        arquivo_saida << endl;
-
-    }
-    
-    //Armazenando o grafo final
-    if (opcao == 0) {
-        arquivo_saida.is_open();
-        escrita(arquivo_saida, grafo);
-        arquivo_saida << endl;
     }
 
     return 0;
@@ -299,8 +291,9 @@ int mainMenu(ofstream& arquivo_saida, Grafo* grafo) {
  ***********************************************************/
 int main(int argc, char** argv) {
     //Verificação se todos os parâmetros do programa foram entrados
-    if (argc != 6) {
-        cout << "ERROR: Esperando: ./<nome_programa> <arquivo_entrada> <arquivo_saida> <dirigido> <ponderado_aresta> <ponderado_no> " << endl;
+    if (argc < 6) {
+        cout << "ERROR: Esperando: ./<nome_programa> <arquivo_entrada> <arquivo_saida> <dirigido> <ponderado_aresta> <ponderado_no> <grafo_inicio_primeira_linha_arquivo>" << endl;
+        cout << "ATENÇÃO: O último parâmetro é opcional quando for colocado considera a leitura do primeiro nó do grafo a partir da primeira linha do arquivo. " << endl;
         return 1;
     }
 
@@ -321,7 +314,14 @@ int main(int argc, char** argv) {
     Grafo *grafo;
 
     if (arq_entrada.is_open()) {
-        grafo = leitura(arq_entrada, atoi(argv[3]), atoi(argv[4]), atoi(argv[5]));
+        if (argc == 7) {
+            //considera a leitura do grafo a apartir da primeira linha
+            grafo = leitura(arq_entrada, atoi(argv[3]), atoi(argv[4]), atoi(argv[5]), 1);
+        } else {
+            //considera a leitura do grafo a partir da segunda linha
+            grafo = leitura(arq_entrada, atoi(argv[3]), atoi(argv[4]), atoi(argv[5]), 0);
+        }
+
     } else
         cout << "Não foi possível abrir o arquivo " << arq_entrada_nome << endl;
 
