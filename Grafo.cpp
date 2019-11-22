@@ -141,10 +141,12 @@ void Grafo::inserirNo(int id) {
     if (this->primeiroNo != nullptr) {
         //inserir o  nó no final da lista
         No *no = new No(id);
+        no->setIdInterno(this->ordem);
         this->ultimoNo->setProximoNo(no);
         this->ultimoNo = no;
     } else {
         this->primeiroNo = new No(id);
+        this->primeiroNo->setIdInterno(0);
         this->ultimoNo = this->primeiroNo;
     }
     //atualizar a ordem do grafo
@@ -233,10 +235,19 @@ void Grafo::removerNo(int id) {
             this->ultimoNo = aux->getProximoNo();
 
         aux->removerTodasAresta();
-        //delete aux;
 
         //atualizar a ordem do grafo
         this->ordem--;
+
+        //atualizar os id's internos de cada nó
+        No *p = this->primeiroNo;
+        int idInterno = 0;
+        while (p != nullptr) {
+            p->setIdInterno(idInterno);
+            idInterno += 1;
+            p = p->getProximoNo();
+
+        }
     }
 }
 
@@ -249,7 +260,7 @@ void Grafo::imprimir() {
 
         //percorrendo a lista de nó
         while (p != nullptr) {
-            cout << p->getId() << ": ";
+            cout << p->getId() << "(" << p->getIdInterno() << ")" << ": ";
 
             //imprimir as arestas
             Aresta *a = p->getPrimeiraAresta();
@@ -272,42 +283,39 @@ void Grafo::imprimir() {
 Grafo *Grafo::clone() {
     if (this->primeiroNo != nullptr) {
         Grafo * g = new Grafo(this->dirigido, this->arestaPoderada, this->noPonderado);
-
         No *p = this->primeiroNo;
-        while (p != nullptr) {
-            Aresta *a = p->getPrimeiraAresta();
 
+        while (p != nullptr) {
+            g->inserirNo(p->getId());
+
+            Aresta *a = p->getPrimeiraAresta();
+            No* no = g->getNo(p->getId());
+            no->setGrau(p->getGrau());
+            
             while (a != nullptr) {
                 if (!g->getArestaPonderada() && !g->getNoPonderado()) {
-
-                    g->inserirAresta(p->getId(), a->getLabel(), 0);
+                    no->inserirAresta(a->getLabel(), 0);
 
                 } else if (g->getArestaPonderada() && !g->getNoPonderado()) {
-
-                    g->inserirAresta(p->getId(), a->getLabel(), a->getLabel());
+                    no->inserirAresta(a->getLabel(), a->getPeso());
 
                 } else if (g->getNoPonderado() && !g->getArestaPonderada()) {
-
-                    g->inserirAresta(p->getId(), a->getLabel(), 0);
-                    g->getNo(p->getId())->setPeso(p->getPeso());
-
-                    No *destino = this->getNo(a->getLabel());
-                    g->getNo(destino->getId())->setPeso(destino->getPeso());
-
+                    no->setPeso(p->getPeso());
+                    no->inserirAresta(a->getLabel(), 0);
                 } else if (g->getArestaPonderada() && g->getNoPonderado()) {
-
-                    g->inserirAresta(p->getId(), a->getLabel(), a->getLabel());
-                    g->getNo(p->getId())->setPeso(p->getPeso());
-
-                    No *destino = this->getNo(a->getLabel());
-                    g->getNo(destino->getId())->setPeso(destino->getPeso());
+                    no->setPeso(p->getPeso());
+                    no->inserirAresta(a->getLabel(), a->getPeso());
                 }
                 a = a->getProximaAresta();
             }
+
             p = p->getProximoNo();
         }
+        
+        return g;
     } else {
         cout << "Grafo nulo";
+        return nullptr;
     }
 }
 
@@ -586,7 +594,7 @@ void Grafo::caminhoMinimoFloyd(int origem, int destino) {
  * @return 
  */
 Grafo* Grafo::arvoreGeradoraMinimaPrim() {
-    
+
 }
 
 /**
@@ -605,7 +613,7 @@ void Grafo::ordenaArestaPeso(Aresta *vetor, int n) {
  * @return 
  */
 Grafo* Grafo::arvoreGeradoraMinimaKruskall() {
-   
+
 }
 
 /**

@@ -39,6 +39,7 @@ public:
     Aresta *getAresta(int label);
     //Sets
     void setIdInterno(int idInterno);
+    void setGrau(int grau);
     void setPeso(float peso);
     void setProximoNo(No *proximoNo);
     //Outros métodos

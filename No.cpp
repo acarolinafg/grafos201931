@@ -118,6 +118,14 @@ void No::setIdInterno(int idInterno) {
 }
 
 /**
+ * Armazena o grau do nó (utilizado para copiar o grafo)
+ * @param grau
+ */
+void No::setGrau(int grau) {
+    this->grau = grau;
+}
+
+/**
  * Armazena o peso do nó
  * @param peso
  */
