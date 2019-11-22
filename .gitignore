@@ -81,6 +81,7 @@ Makefile
 **/nbproject/Package-*.bash
 **/nbproject/configurations.xml
 **/nbproject/project.xml
+**/nbproject/project.properties
 build/
 nbbuild/
 dist/
