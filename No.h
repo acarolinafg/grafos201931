@@ -29,18 +29,20 @@ public:
     ~No();
     //Gets
     int getId();
+    int getIdInterno();
     float getPeso();
     unsigned int getGrau();
     unsigned int getGrauSaida();
     Aresta *getPrimeiraAresta();
     Aresta *getUltimaAresta();
     No *getProximoNo();
+    Aresta *getAresta(int label);
     //Sets
+    void setIdInterno(int idInterno);
     void setPeso(float peso);
     void setProximoNo(No *proximoNo);
     //Outros métodos
     bool buscarAresta(int label);
-    Aresta *getAresta(int label);
     void inserirAresta(int label, float peso);
     bool removerAresta(int label, bool dirigido);
     void removerTodasAresta();
@@ -50,6 +52,7 @@ public:
     void decrementarGrauSaida();
 private:
     int id;
+    int idInterno;
     float peso;
     unsigned int grau;
     unsigned int grauSaida;

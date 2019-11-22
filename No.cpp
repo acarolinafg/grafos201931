@@ -22,6 +22,7 @@
  */
 No::No(int id) {
     this->id = id;
+    this->idInterno = 0;
     this->peso = 0;
     this->grau = 0;
     this->grauSaida = 0;
@@ -49,6 +50,14 @@ No::~No() {
  */
 int No::getId() {
     return this->id;
+}
+
+/**
+ * Retorna o identificador interno do nó
+ * @return int idInterno
+ */
+int No::getIdInterno() {
+    return this->idInterno;
 }
 
 /**
@@ -98,6 +107,14 @@ Aresta *No::getUltimaAresta() {
  */
 No *No::getProximoNo() {
     return this->proximoNo;
+}
+
+/**
+ * Armazena o identificador interno do nó
+ * @param idInterno
+ */
+void No::setIdInterno(int idInterno) {
+    this->idInterno = idInterno;
 }
 
 /**
