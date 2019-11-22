@@ -318,7 +318,6 @@ int main(int argc, char** argv) {
             //considera a leitura do grafo a partir da segunda linha
             grafo = leitura(arq_entrada, atoi(argv[3]), atoi(argv[4]), atoi(argv[5]), 0);
         }
-        cout << "Ordem:" << grafo->getOrdem() << endl;
 
     } else
         cout << "Não foi possível abrir o arquivo " << arq_entrada_nome << endl;
