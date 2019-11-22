@@ -39,9 +39,11 @@ public:
     bool getNoPonderado();
     No *getPrimeiroNo();
     No *getUltimoNo();
+    No *getNo(int id);
+    No *getNoIdInterno(int idIdInterno);
     //Outros métodos
     bool buscarNo(int id);
-    No *getNo(int id);
+    bool buscarNoIdInterno(int idInterno);
     void inserirNo(int id);
     void inserirAresta(int id, int label, float peso);
     void removerNo(int id);
@@ -51,7 +53,7 @@ public:
     void buscaDFS(int id);
     void fechoTransitivoDireto(int id);
     void fechoTransitivoIndireto(int id);
-    void caminhoMinimoDjikstra(int origem,int destino);
+    void caminhoMinimoDjikstra(int origem, int destino);
     void caminhoMinimoFloyd(int origem, int destino);
     Grafo *arvoreGeradoraMinimaKruskall();
     Grafo *arvoreGeradoraMinimaPrim();
@@ -71,7 +73,6 @@ private:
     No* ultimoNo;
     void dfs(int id, int *visitados, int cont);
     void ordenaArestaPeso(Aresta *vetor, int n);
-        
 };
 
 #endif /* GRAFO_H */

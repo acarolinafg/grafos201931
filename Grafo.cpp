@@ -117,6 +117,22 @@ bool Grafo::buscarNo(int id) {
 }
 
 /**
+ * Busca um nó do grafo pelo seu identificador interno
+ * @param idIterno
+ * @return 
+ */
+bool Grafo::buscarNoIdInterno(int idInterno) {
+    if (this->primeiroNo != nullptr) {
+        for (No*prox = this->primeiroNo; prox != nullptr; prox = prox->getProximoNo()) {
+            if (prox->getIdInterno() == idInterno) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+/**
  * Retorna um nó buscado 
  * @param id
  * @return 
@@ -125,6 +141,22 @@ No *Grafo::getNo(int id) {
     if (this->primeiroNo != nullptr) {
         for (No*prox = this->primeiroNo; prox != nullptr; prox = prox->getProximoNo()) {
             if (prox->getId() == id) {
+                return prox;
+            }
+        }
+    }
+    return nullptr;
+}
+
+/**
+ * Retorna um nó buscado pelo identificador interno do Nó
+ * @param idInterno
+ * @return 
+ */
+No *Grafo::getNoIdInterno(int idInterno) {
+    if (this->primeiroNo != nullptr) {
+        for (No*prox = this->primeiroNo; prox != nullptr; prox = prox->getProximoNo()) {
+            if (prox->getIdInterno() == idInterno) {
                 return prox;
             }
         }
@@ -363,9 +395,9 @@ void Grafo::buscaBFS(int id) {
         //imprimir os vértices visitados
         cout << "Nós visitados a partir do vértice " << id << ": " << endl;
         for (int i = 0; i < this->getOrdem(); i++) {
-            if (visitados[i] != -1) {
+            if (visitados[i] > -1) {
 
-                cout << this->getNo(i)->getId() << "(" << visitados[i] << "º)" << endl;
+                cout << this->getNoIdInterno(i)->getId() << "(" << visitados[i] << "º)" << endl;
 
             }
         }
@@ -396,7 +428,7 @@ void Grafo::buscaDFS(int id) {
         for (int i = 0; i < this->getOrdem(); i++) {
             if (visitados[i] != -1) {
 
-                cout << this->getNo(i)->getId() << "(" << visitados[i] << "º)" << endl;
+                cout << this->getNoIdInterno(i)->getId() << "(" << visitados[i] << "º)" << endl;
 
             }
         }
