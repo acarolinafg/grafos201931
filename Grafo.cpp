@@ -459,7 +459,7 @@ void Grafo::dfs(int id, int *visitados, int cont) {
         i = noAresta->getIdInterno();
 
         if (visitados[i] == -1)
-            dfs(a->getLabel(), visitados, cont + 1);
+            dfs(noAresta->getId(), visitados, cont + 1);
 
         a = a->getProximaAresta();
     }

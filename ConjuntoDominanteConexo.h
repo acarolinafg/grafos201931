@@ -14,11 +14,17 @@
  *          Problema - Conjunto Dominate Conexo            *
  ***********************************************************/
 
-#include "CojuntoDominanteConexo.h"
+#ifndef CONJUNTODOMINANTECONEXO_H
+#define CONJUNTODOMINANTECONEXO_H
+#include "Grafo.h"
 
-CojuntoDominanteConexo::CojuntoDominanteConexo() {
-}
+class ConjuntoDominanteConexo {
+public:
+    ConjuntoDominanteConexo(Grafo *instancia);
+    virtual ~ConjuntoDominanteConexo();
+private:
+    Grafo *instancia;
+};
 
-CojuntoDominanteConexo::~CojuntoDominanteConexo() {
-}
+#endif /* CONJUNTODOMINANTECONEXO_H */
 

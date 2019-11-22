@@ -318,7 +318,7 @@ int main(int argc, char** argv) {
 
     } else
         cout << "Não foi possível abrir o arquivo " << arq_entrada_nome << endl;
-
+    
     mainMenu(arq_saida, grafo);
 
     //Fechando arquivo de entrada

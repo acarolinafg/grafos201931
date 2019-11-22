@@ -14,17 +14,17 @@
  *          Problema - Conjunto Dominate Conexo            *
  ***********************************************************/
 
-#ifndef COJUNTODOMINANTECONEXO_H
-#define COJUNTODOMINANTECONEXO_H
-#include "Grafo.h"
+#include "ConjuntoDominanteConexo.h"
 
-class CojuntoDominanteConexo {
-public:
-    CojuntoDominanteConexo();
-    virtual ~CojuntoDominanteConexo();
-private:
+ConjuntoDominanteConexo::ConjuntoDominanteConexo(Grafo *instancia) {
+    if(!instancia->isConexo()){
+        cout << "Grafo Desconexo - Não é possível gerar um Conjunto Dominante Conexo." << endl;
+        exit(0);
+    }
+    this->instancia = instancia;
+}
 
-};
-
-#endif /* COJUNTODOMINANTECONEXO_H */
+ConjuntoDominanteConexo::~ConjuntoDominanteConexo() {
+    this->instancia->~Grafo();
+}
 
