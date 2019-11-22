@@ -11,7 +11,7 @@
  ************************************************************/
 
 /***********************************************************
- *          Problema - Subconjunto Dominate Conexo         *
+ *          Problema - Conjunto Dominate Conexo            *
  ***********************************************************/
 
 #include "CojuntoDominanteConexo.h"

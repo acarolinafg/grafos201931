@@ -11,11 +11,12 @@
  ************************************************************/
 
 /***********************************************************
- *          Problema - Subconjunto Dominate Conexo         *
+ *          Problema - Conjunto Dominate Conexo            *
  ***********************************************************/
 
 #ifndef COJUNTODOMINANTECONEXO_H
 #define COJUNTODOMINANTECONEXO_H
+#include "Grafo.h"
 
 class CojuntoDominanteConexo {
 public:

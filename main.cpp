@@ -10,11 +10,8 @@
  *                 TRABALHO PRÁTICO GRUPO 13                *
  ************************************************************/
 
-#include <iostream>
 #include <fstream>
 #include "Grafo.h"
-
-using namespace std;
 
 /**
  * Realiza a leitura do arquivo e transforma em um grafo

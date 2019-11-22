@@ -394,11 +394,12 @@ void Grafo::buscaBFS(int id) {
 
         //imprimir os vértices visitados
         cout << "Nós visitados a partir do vértice " << id << ": " << endl;
+        No *v;
         for (int i = 0; i < this->getOrdem(); i++) {
             if (visitados[i] > -1) {
-
-                cout << this->getNoIdInterno(i)->getId() << "(" << visitados[i] << "º)" << endl;
-
+                v = this->getNoIdInterno(i);
+                if (v != nullptr)
+                    cout << this->getNoIdInterno(i)->getId() << "(" << visitados[i] << "º)" << endl;
             }
         }
     }
@@ -425,11 +426,12 @@ void Grafo::buscaDFS(int id) {
 
         //imprimir os vértices visitados
         cout << "Nós visitados a partir do vértice " << id << ": " << endl;
+        No *v;
         for (int i = 0; i < this->getOrdem(); i++) {
-            if (visitados[i] != -1) {
-
-                cout << this->getNoIdInterno(i)->getId() << "(" << visitados[i] << "º)" << endl;
-
+            if (visitados[i] > -1) {
+                v = this->getNoIdInterno(i);
+                if (v != nullptr)
+                    cout << this->getNoIdInterno(i)->getId() << "(" << visitados[i] << "º)" << endl;
             }
         }
     }
@@ -721,7 +723,7 @@ bool Grafo::isConexo() {
     //total de nós visitados
     int total = 0;
     for (int i = 0; i < this->getOrdem(); i++) {
-        if (visitados[i] != -1) {
+        if (visitados[i] > -1) {
             total++;
         }
     }
